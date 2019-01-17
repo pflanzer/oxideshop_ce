@@ -276,3 +276,13 @@ services:
     arguments:
       - '@OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\DateFormatHelper'
     tags: ['twig.extension']
+
+  OxidEsales\EshopCommunity\Internal\Twig\Extensions\InsertNewBasketItemExtension:
+    class: OxidEsales\EshopCommunity\Internal\Twig\Extensions\InsertNewBasketItemExtension
+    arguments:
+      - '@OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\InsertNewBasketItemLogic'
+    tags: ['twig.extension']
+
+  OxidEsales\EshopCommunity\Internal\Twig\Extensions\InsertTrackerExtension:
+    class: OxidEsales\EshopCommunity\Internal\Twig\Extensions\InsertTrackerExtension
+    tags: ['twig.extension']

@@ -73,5 +73,8 @@ services:
     class: OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\DateFormatHelper
 
 
+  OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\InsertNewBasketItemLogic:
+    class: OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\InsertNewBasketItemLogic
+
 
 
