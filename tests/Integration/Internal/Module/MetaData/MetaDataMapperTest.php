@@ -25,7 +25,9 @@ class MetaDataMapperTest extends TestCase
         $metaDataCheckSum = md5_file($metaDataFilePath);
         $expectedModuleData = [
             'id'          => 'TestModuleMetaData20',
-            'title'       => 'Module for testModuleMetaData20',
+            'title'                   => [
+                'en' => 'Module for testModuleMetaData20'
+            ],
             'description' => [
                 'de' => 'de description for testModuleMetaData20',
                 'en' => 'en description for testModuleMetaData20',
@@ -142,7 +144,9 @@ class MetaDataMapperTest extends TestCase
         $metaDataFilePath = $this->getMetaDataFilePath($testModuleDirectory);
         $expectedModuleData = [
             'id'                      => 'TestModuleMetaData21',
-            'title'                   => 'Module for testModuleMetaData21',
+            'title'                   => [
+                'en' => 'Module for testModuleMetaData21'
+            ],
             'description'             => [
                 'de' => 'de description for testModuleMetaData21',
                 'en' => 'en description for testModuleMetaData21',
@@ -307,7 +311,7 @@ class MetaDataMapperTest extends TestCase
         $this->assertContains('id', strtolower($message));
 
         /** All methods should return type safe default values, if there were no values defined in metadata.php */
-        $this->assertSame('', $moduleConfiguration->getTitle());
+        $this->assertSame([], $moduleConfiguration->getTitle());
         $this->assertSame([], $moduleConfiguration->getDescription());
         $this->assertSame('', $moduleConfiguration->getLang());
         $this->assertSame('', $moduleConfiguration->getThumbnail());
