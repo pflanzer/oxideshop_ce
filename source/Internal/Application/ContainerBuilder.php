@@ -17,6 +17,7 @@ use Symfony\Component\Console\DependencyInjection\AddConsoleCommandPass;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder as SymfonyContainerBuilder;
 use Symfony\Component\EventDispatcher\DependencyInjection\RegisterListenersPass;
+use Symfony\Component\Filesystem\Filesystem;
 use Webmozart\PathUtil\Path;
 
 /**
@@ -91,7 +92,7 @@ class ContainerBuilder
      */
     private function cleanupProjectYaml()
     {
-        $projectYamlDao = new ProjectYamlDao($this->context);
+        $projectYamlDao = new ProjectYamlDao($this->context, new Filesystem());
         $yamlImportService = new ProjectYamlImportService($projectYamlDao);
         $yamlImportService->removeNonExistingImports();
     }
