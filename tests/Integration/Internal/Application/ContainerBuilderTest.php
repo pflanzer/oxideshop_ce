@@ -69,7 +69,7 @@ class ContainerBuilderTest extends TestCase
     {
         $context = $this->makeContextStub();
         $context->method('getEdition')->willReturn(EditionSelector::COMMUNITY);
-        $context->method('getGeneratedProjectFilePath')->willReturn('not_existing.yaml');
+        $context->method('getGeneratedServicesFilePath')->willReturn('not_existing.yaml');
         $container = $this->makeContainer($context);
 
         $this->assertTrue($container->get('query_type_factory')->verifySubType());
