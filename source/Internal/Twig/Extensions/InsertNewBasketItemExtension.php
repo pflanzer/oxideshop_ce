@@ -6,7 +6,8 @@
 
 namespace OxidEsales\EshopCommunity\Internal\Twig\Extensions;
 
-use OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\InsertNewBasketItemLogic;
+use OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\InsertNewBasketItemLogicTwig;
+use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -20,16 +21,16 @@ class InsertNewBasketItemExtension extends AbstractExtension
 {
 
     /**
-     * @var InsertNewBasketItemLogic
+     * @var InsertNewBasketItemLogicTwig
      */
     private $newBasketItemLogic;
 
     /**
      * InputHelpExtension constructor.
      *
-     * @param InsertNewBasketItemLogic $newBasketItemLogic
+     * @param InsertNewBasketItemLogicTwig $newBasketItemLogic
      */
-    public function __construct(InsertNewBasketItemLogic $newBasketItemLogic)
+    public function __construct(InsertNewBasketItemLogicTwig $newBasketItemLogic)
     {
         $this->newBasketItemLogic = $newBasketItemLogic;
     }
@@ -43,12 +44,12 @@ class InsertNewBasketItemExtension extends AbstractExtension
     }
 
     /**
-     * @param \Twig_Environment $env
-     * @param array             $params
+     * @param Environment $env
+     * @param array       $params
      *
      * @return string
      */
-    public function insertNewBasketItem(\Twig_Environment $env, $params): string
+    public function insertNewBasketItem(Environment $env, $params): string
     {
         return $this->newBasketItemLogic->getNewBasketItemTemplate($params, $env);
     }

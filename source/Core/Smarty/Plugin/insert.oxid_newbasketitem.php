@@ -5,7 +5,7 @@
  */
 
 use OxidEsales\EshopCommunity\Internal\Application\ContainerFactory;
-use OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\InsertNewBasketItemLogic;
+use OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\InsertNewBasketItemLogicSmarty;
 
 /**
  * Smarty plugin
@@ -24,9 +24,9 @@ use OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\InsertNewBasketItem
 function smarty_insert_oxid_newbasketitem($params, &$smarty)
 {
     /**
-     * @var InsertNewBasketItemLogic $insertNewBasketItemLogic
+     * @var InsertNewBasketItemLogicSmarty $insertNewBasketItemLogic
      */
-    $insertNewBasketItemLogic = ContainerFactory::getInstance()->getContainer()->get(InsertNewBasketItemLogic::class);
+    $insertNewBasketItemLogic = ContainerFactory::getInstance()->getContainer()->get(InsertNewBasketItemLogicSmarty::class);
 
     return $insertNewBasketItemLogic->getNewBasketItemTemplate($params, $smarty);
 }

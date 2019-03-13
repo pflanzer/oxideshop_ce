@@ -6,25 +6,26 @@
 
 namespace OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic;
 
-use Twig\Environment;
-
 /**
- * Class InsertNewBasketItemLogic
+ * Class AbstractInsertNewBasketItemLogic
  *
  * @package OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic
  * @author  Jędrzej Skoczek
  */
-class InsertNewBasketItemLogic
+abstract class AbstractInsertNewBasketItemLogic
 {
 
     /**
-     * @param array             $params
-     * @param \Twig_Environment $templateEngine
+     * @param array  $params
+     * @param object $templateEngine
      *
      * @return string
      */
     public function getNewBasketItemTemplate(array $params, $templateEngine): string
     {
+        if (!$this->validateTemplateEngine($templateEngine)) {
+            throw new \Exception('Please check if correct template engine is used.');
+        }
         $renderedTemplate = '';
         $config = \OxidEsales\Eshop\Core\Registry::getConfig();
 
@@ -39,7 +40,7 @@ class InsertNewBasketItemLogic
         }
 
         //name of template file where is stored message text
-        $templateName = $params['tpl'] ? $params['tpl'] : 'inc_newbasketitem.snippet.tpl';
+        $templateName = $params['tpl'] ? $params['tpl'] : 'inc_newbasketitem.snippet.html.twig';
 
         //always render for ajaxstyle popup
         $render = $params['ajax'] && ($newBasketItemMessage == 2);
@@ -48,34 +49,38 @@ class InsertNewBasketItemLogic
         $newItem = \OxidEsales\Eshop\Core\Registry::getSession()->getVariable('_newitem');
 
         if ($newItem && $correctMessageType) {
-            // loading article object here because on some system passing article by session causes problems
-            $newItem->oArticle = oxNew('oxarticle');
-
-            $newItem->oArticle->Load($newItem->sId);
-
-            // passing variable to template with unique name
-            if ($templateEngine instanceof \Smarty) {
-                $templateEngine->assign('_newitem', $newItem);
-            } elseif ($templateEngine instanceof Environment) {
-                $templateEngine->addGlobal('_newitem', $newItem);
-            }
-
-            // deleting article object data
-            \OxidEsales\Eshop\Core\Registry::getSession()->deleteVariable('_newitem');
-
+            $this->loadArticleObject($newItem, $templateEngine);
             $render = true;
         }
 
         // returning generated message content
         if ($render && $correctMessageType) {
-            if ($templateEngine instanceof \Smarty) {
-                $renderedTemplate = $templateEngine->fetch($templateName);
-            } elseif ($templateEngine instanceof Environment) {
-                $template = $templateEngine->load($templateName);
-                $renderedTemplate = $template->render();
-            }
+            $renderedTemplate = $this->renderTemplate($templateEngine, $templateName);
         }
 
         return $renderedTemplate;
     }
+
+    /**
+     * @param object $templateEngine
+     *
+     * @return mixed
+     */
+    abstract protected function validateTemplateEngine($templateEngine);
+
+    /**
+     * @param object $newItem
+     * @param object $templateEngine
+     *
+     * @return mixed
+     */
+    abstract protected function loadArticleObject($newItem, $templateEngine);
+
+    /**
+     * @param string $templateName
+     * @param object $templateEngine
+     *
+     * @return mixed
+     */
+    abstract protected function renderTemplate(string $templateName, $templateEngine);
 }
