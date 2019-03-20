@@ -6,6 +6,7 @@
 
 namespace OxidEsales\EshopCommunity\Tests\Integration\Core\Module;
 
+use OxidEsales\EshopCommunity\Internal\Smarty\SmartyFactoryInterface;
 use OxidEsales\EshopCommunity\Tests\Integration\Modules\Environment;
 use OxidEsales\Eshop\Core\UtilsView;
 use OxidEsales\TestingLibrary\UnitTestCase;
@@ -22,8 +23,7 @@ class ModuleSmartyPluginDirectoriesTest extends UnitTestCase
     {
         $this->activateTestModule();
 
-        $utilsView = oxNew(UtilsView::class);
-        $smarty = $utilsView->getSmarty(true);
+        $smarty = $this->getContainer()->get(SmartyFactoryInterface::class)->getSmarty();
 
         $this->assertTrue(
             $this->isPathInSmartyDirectories($smarty, 'Smarty/PluginDirectory1WithMetadataVersion21')
@@ -38,8 +38,7 @@ class ModuleSmartyPluginDirectoriesTest extends UnitTestCase
     {
         $this->activateTestModule();
 
-        $utilsView = oxNew(UtilsView::class);
-        $smarty = $utilsView->getSmarty(true);
+        $smarty = $this->getContainer()->get(SmartyFactoryInterface::class)->getSmarty();
 
         $this->assertModuleSmartyPluginDirectoriesFirst($smarty->plugins_dir);
         $this->assertShopSmartyPluginDirectorySecond($smarty->plugins_dir);
@@ -83,5 +82,13 @@ class ModuleSmartyPluginDirectoriesTest extends UnitTestCase
         $environment = new Environment();
         $environment->prepare($modules);
         $environment->activateModules($modules);
+    }
+
+    /**
+     * @return \Psr\Container\ContainerInterface
+     */
+    private function getContainer()
+    {
+        return \OxidEsales\EshopCommunity\Internal\Application\ContainerFactory::getInstance()->getContainer();
     }
 }

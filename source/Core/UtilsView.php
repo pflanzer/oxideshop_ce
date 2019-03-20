@@ -15,6 +15,9 @@ use OxidEsales\Eshop\Core\Module\ModuleTemplateBlockRepository;
 use OxidEsales\Eshop\Core\Module\ModuleVariablesLocator;
 use OxidEsales\Eshop\Core\Module\ModuleSmartyPluginDirectoryRepository;
 use OxidEsales\Eshop\Core\ShopIdCalculator as EshopShopIdCalculator;
+use OxidEsales\EshopCommunity\Internal\Smarty\Bridge\ModuleSmartyPluginBridgeInterface;
+use OxidEsales\EshopCommunity\Internal\Smarty\SmartyTemplateRendererBridge;
+use OxidEsales\EshopCommunity\Internal\Templating\TemplateRendererInterface;
 use Smarty;
 
 /**
@@ -50,15 +53,14 @@ class UtilsView extends \OxidEsales\Eshop\Core\Base
      */
     protected $_aActiveModuleInfo = null;
 
-    /** @var \OxidEsales\Eshop\Core\ShopIdCalculator */
-    private $shopIdCalculator;
-
     /**
      * returns existing or creates smarty object
      * Returns smarty object. If object not yet initiated - creates it. Sets such
      * default parameters, like cache lifetime, cache/templates directory, etc.
      *
      * @param bool $blReload set true to force smarty reload
+     *
+     * @deprecated since v6.4.0 (2019-03-19); For getting templating instance please use TemplateRendererInterface
      *
      * @return smarty
      */
@@ -85,7 +87,6 @@ class UtilsView extends \OxidEsales\Eshop\Core\Base
      */
     public function getTemplateOutput($templateName, $oObject)
     {
-        $smarty = $this->getSmarty();
         $debugMode = $this->getConfig()->getConfigParam('iDebug');
 
         // assign
@@ -97,11 +98,14 @@ class UtilsView extends \OxidEsales\Eshop\Core\Base
                     echo("TemplateData[$viewName] : \n");
                     var_export($viewData[$viewName]);
                 }
-                $smarty->assign($viewName, $viewData[$viewName]);
             }
+        } else {
+            $viewData = [];
         }
 
-        return $smarty->fetch($templateName);
+        return $this->getContainer()
+            ->get(TemplateRendererInterface::class)
+            ->renderTemplate($templateName, $viewData);
     }
 
     /**
@@ -222,41 +226,36 @@ class UtilsView extends \OxidEsales\Eshop\Core\Base
         $activeLanguageId = \OxidEsales\Eshop\Core\Registry::getLang()->getTplLanguage();
 
         // now parse it through smarty
-        $smarty = clone $this->getSmarty();
-
-        // save old tpl data
-        $tplVars = $smarty->_tpl_vars;
-        $forceRecompile = $smarty->force_compile;
-
-        $smarty->force_compile = $blRecompile;
+        $renderer = clone $this->getRenderer();
 
         if (!$oActView) {
             $oActView = oxNew(\OxidEsales\Eshop\Application\Controller\FrontendController::class);
             $oActView->addGlobalParams();
         }
 
-        $viewData = $oActView->getViewData();
-        foreach (array_keys($viewData) as $name) {
-            $smarty->assign($name, $viewData[$name]);
-        }
-
         if (is_array($sDesc)) {
             foreach ($sDesc as $name => $aData) {
-                $smarty->oxidcache = new \OxidEsales\Eshop\Core\Field($aData[1], \OxidEsales\Eshop\Core\Field::T_RAW);
-                $result[$name] = $smarty->fetch("ox:" . $aData[0] . $activeLanguageId);
+                $result[$name] = $renderer->renderTemplate($aData[1], $oActView->getViewData(), "ox:" . $aData[0] . $activeLanguageId);
             }
         } else {
-            $smarty->oxidcache = new \OxidEsales\Eshop\Core\Field($sDesc, \OxidEsales\Eshop\Core\Field::T_RAW);
-            $result = $smarty->fetch("ox:{$sOxid}{$activeLanguageId}");
+            $result = $renderer->renderTemplate($sDesc, $oActView->getViewData(), "ox:" . $sOxid . $activeLanguageId);
         }
-
-        // restore tpl vars for continuing smarty processing if it is in one
-        $smarty->_tpl_vars = $tplVars;
-        $smarty->force_compile = $forceRecompile;
 
         stopProfile("parseThroughSmarty");
 
         return $result;
+    }
+
+    /**
+     * Templating instance getter
+     *
+     * @return TemplateRendererInterface
+     */
+    private function getRenderer()
+    {
+        $rendererBridge = $this->getContainer()->get(SmartyTemplateRendererBridge::class);
+        $rendererBridge->setEngine($this->getSmarty());
+        return $rendererBridge->getTemplateRenderer();
     }
 
     /**
@@ -297,6 +296,8 @@ class UtilsView extends \OxidEsales\Eshop\Core\Base
     /**
      * Get template compile id.
      *
+     * @deprecated TODO
+     *
      * @return string
      */
     public function getTemplateCompileId()
@@ -309,6 +310,8 @@ class UtilsView extends \OxidEsales\Eshop\Core\Base
 
     /**
      * Returns a full path to Smarty compile dir
+     *
+     * @deprecated TODO
      *
      * @return string
      */
@@ -402,6 +405,7 @@ class UtilsView extends \OxidEsales\Eshop\Core\Base
     }
 
     /**
+     * @deprecated TODO
      * @return array
      */
     protected function getShopSmartyPluginDirectories()
@@ -808,49 +812,6 @@ class UtilsView extends \OxidEsales\Eshop\Core\Base
      */
     private function getModuleSmartyPluginDirectories()
     {
-        $moduleSmartyPluginDirectoryRepository = $this->getSmartyPluginDirectoryRepository();
-        $moduleSmartyPluginDirectories = $moduleSmartyPluginDirectoryRepository->get();
-
-        return $moduleSmartyPluginDirectories->getWithFullPath();
-    }
-
-    /**
-     * @return ModuleSmartyPluginDirectoryRepository
-     */
-    private function getSmartyPluginDirectoryRepository()
-    {
-        $subShopSpecificCache = oxNew(
-            \OxidEsales\Eshop\Core\SubShopSpecificFileCache::class,
-            $this->getShopIdCalculator()
-        );
-
-        $moduleVariablesLocator = oxNew(
-            ModuleVariablesLocator::class,
-            $subShopSpecificCache,
-            $this->getShopIdCalculator()
-        );
-
-        return oxNew(
-            ModuleSmartyPluginDirectoryRepository::class,
-            $this->getConfig(),
-            $moduleVariablesLocator,
-            oxNew(Module::class)
-        );
-    }
-
-    /**
-     * @return EshopShopIdCalculator
-     */
-    private function getShopIdCalculator()
-    {
-        if (is_null($this->shopIdCalculator)) {
-            $moduleVariablesCache = oxNew(\OxidEsales\Eshop\Core\FileCache::class);
-
-            $this->shopIdCalculator = oxNew(
-                EshopShopIdCalculator::class,
-                $moduleVariablesCache
-            );
-        }
-        return $this->shopIdCalculator;
+        return $this->getContainer()->get(ModuleSmartyPluginBridgeInterface::class)->getModuleSmartyPluginPaths();
     }
 }
