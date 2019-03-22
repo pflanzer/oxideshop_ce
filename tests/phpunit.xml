@@ -16,7 +16,7 @@
          beStrictAboutTestsThatDoNotTestAnything="false"
          verbose="false">
     <filter>
-        <whitelist addUncoveredFilesFromWhitelist="true">
+        <whitelist addUncoveredFilesFromWhitelist="true" processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">../source</directory>
             <exclude>
                 <directory suffix=".php">../source/Application/views</directory>
