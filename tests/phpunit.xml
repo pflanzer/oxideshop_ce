@@ -15,10 +15,6 @@
          stopOnSkipped="false"
          beStrictAboutTestsThatDoNotTestAnything="false"
          verbose="false">
-    <php>
-        <includePath>../source</includePath>
-        <includePath>../source/Setup</includePath>
-    </php>
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true"
                    processUncoveredFilesFromWhitelist="true">

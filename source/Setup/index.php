@@ -6,7 +6,7 @@
 
 namespace OxidEsales\EshopCommunity\Setup;
 
-require_once '../bootstrap.php';
+require_once __DIR__.'/../bootstrap.php';
 
 /** moduleAutoload must be unregistered, as it would trigger a database connection, which is not yet available */
 $moduleAutoload = \OxidEsales\EshopCommunity\Core\Autoload\ModuleAutoload::class ;
