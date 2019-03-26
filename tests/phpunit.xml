@@ -28,7 +28,6 @@
             <directory suffix=".php">../source/log</directory>
             <directory suffix=".php">../source/migration</directory>
             <directory suffix=".php">../source/modules</directory>
-            <directory suffix=".php">../source/Setup</directory>
             <directory suffix=".php">../source/tmp</directory>
             <exclude>
                 <directory suffix=".php">../source/Application/views</directory>
