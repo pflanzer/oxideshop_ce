@@ -20,15 +20,6 @@
                    processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">../source/admin</directory>
             <directory suffix=".php">../source/Application</directory>
-            <directory suffix=".php">../source/bin</directory>
-            <directory suffix=".php">../source/cache</directory>
-            <directory suffix=".php">../source/Core</directory>
-            <directory suffix=".php">../source/export</directory>
-            <directory suffix=".php">../source/Internal</directory>
-            <directory suffix=".php">../source/log</directory>
-            <directory suffix=".php">../source/migration</directory>
-            <directory suffix=".php">../source/modules</directory>
-            <directory suffix=".php">../source/tmp</directory>
             <exclude>
                 <directory suffix=".php">../source/Application/views</directory>
                 <directory suffix=".php">../source/Application/translations</directory>
