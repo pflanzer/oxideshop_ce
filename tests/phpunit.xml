@@ -18,7 +18,7 @@
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true"
                    processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../source</directory>
+            <directory suffix=".php">../source/Application</directory>
             <exclude>
                 <directory suffix=".php">../source/Application/views</directory>
                 <directory suffix=".php">../source/Application/translations</directory>
