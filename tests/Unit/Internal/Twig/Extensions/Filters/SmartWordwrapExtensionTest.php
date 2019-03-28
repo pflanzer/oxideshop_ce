@@ -8,13 +8,31 @@ namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions\Filters;
 
 use OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\SmartWordwrapLogic;
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\Filters\SmartWordwrapExtension;
-use OxidEsales\EshopCommunity\Tests\Unit\Application\Controller\contentTest_oxUtilsView;
-use PHPUnit\Framework\TestCase;
+use OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions\AbstractExtensionTest;
 
-class SmartWordwrapExtensionTest extends TestCase
+/**
+ * Class SmartWordwrapExtensionTest
+ */
+class SmartWordwrapExtensionTest extends AbstractExtensionTest
 {
 
-    public function provider()
+    /** @var SmartWordwrapExtension */
+    protected $extension;
+
+    protected $filters = ['smart_wordwrap'];
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function setUp(): void
+    {
+        $this->extension = new SmartWordwrapExtension(new SmartWordwrapLogic());
+    }
+
+    /**
+     * @return array
+     */
+    public function provider(): array
     {
         return [
             [
@@ -38,14 +56,14 @@ adipiscing elit.'
                 [
                     'string' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
                     'length' => 20,
-                    'break' => '<br/>'
+                    'break'  => '<br/>'
                 ],
                 'Lorem ipsum dolor<br/>sit amet,<br/>consectetur<br/>adipiscing elit.'
             ],
             [
                 [
-                    'string' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                    'length' => 10,
+                    'string'  => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                    'length'  => 10,
                     'cutRows' => 7
                 ],
                 'Lorem
@@ -58,8 +76,8 @@ adipisc...'
             ],
             [
                 [
-                    'string' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                    'length' => 20,
+                    'string'    => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                    'length'    => 20,
                     'tolerance' => -30
                 ],
                 'Lorem ipsum dolor
@@ -69,8 +87,8 @@ adipiscing elit.'
             ],
             [
                 [
-                    'string' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                    'length' => 20,
+                    'string'    => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                    'length'    => 20,
                     'tolerance' => 30
                 ],
                 'Lorem ipsum dolor
@@ -80,8 +98,8 @@ adipiscing elit.'
             ],
             [
                 [
-                    'string' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                    'length' => 20,
+                    'string'    => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                    'length'    => 20,
                     'tolerance' => 150
                 ],
                 'Lorem ipsum dolor
@@ -91,10 +109,10 @@ adipiscing elit.'
             ],
             [
                 [
-                    'string' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                    'length' => 10,
+                    'string'  => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                    'length'  => 10,
                     'cutRows' => 7,
-                    'etc' => '[...]'
+                    'etc'     => '[...]'
                 ],
                 'Lorem
 ipsum
@@ -108,16 +126,14 @@ adipi[...]'
     }
 
     /**
-     * @param array $params
+     * @param array  $params
      * @param string $expectedString
      *
      * @covers       \OxidEsales\EshopCommunity\Internal\Twig\Extensions\Filters\SmartWordwrapExtension::smartWordWrap
      * @dataProvider provider
      */
-    public function testSmartWordWrap($params, $expectedString)
+    public function testSmartWordWrap(array $params, string $expectedString): void
     {
-        $smartWordWrapLogic = new SmartWordwrapLogic();
-        $smartWordWrapExtension = new SmartWordwrapExtension($smartWordWrapLogic);
         $string = $params['string'];
         $length = isset($params['length']) ? $params['length'] : 80;
         $break = isset($params['break']) ? $params['break'] : "\n";
@@ -125,8 +141,7 @@ adipi[...]'
         $tolerance = isset($params['tolerance']) ? $params['tolerance'] : 0;
         $etc = isset($params['etc']) ? $params['etc'] : '...';
 
-        $actualString = $smartWordWrapExtension->smartWordwrap($string, $length, $break, $cutRows, $tolerance, $etc);
+        $actualString = $this->extension->smartWordwrap($string, $length, $break, $cutRows, $tolerance, $etc);
         $this->assertEquals($expectedString, $actualString);
-
     }
 }

@@ -9,28 +9,33 @@ namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions;
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\HasRightsExtension;
 use OxidEsales\EshopCommunity\Internal\Twig\Node\HasRightsNode;
 use OxidEsales\EshopCommunity\Internal\Twig\TokenParser\HasRightsTokenParser;
-use PHPUnit\Framework\TestCase;
 
-class HasRightsExtensionTest extends TestCase
+/**
+ * Class HasRightsExtensionTest
+ */
+class HasRightsExtensionTest extends AbstractExtensionTest
 {
 
-    /**
-     * @var HasRightsExtension
-     */
-    private $hasRightsExtension;
+    /** @var HasRightsExtension */
+    protected $extension;
 
-    protected function setUp()
+    protected $tags = ['hasrights'];
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function setUp(): void
     {
-        $this->hasRightsExtension = new HasRightsExtension(new HasRightsTokenParser(HasRightsNode::class));
+        $this->extension = new HasRightsExtension(new HasRightsTokenParser(HasRightsNode::class));
         parent::setUp();
     }
 
     /**
      * @covers \OxidEsales\EshopCommunity\Internal\Twig\Extensions\HasRightsExtension::getTokenParsers
      */
-    public function testGetTokenParsers()
+    public function testGetTokenParsers(): void
     {
-        $tokenParser = $this->hasRightsExtension->getTokenParsers();
+        $tokenParser = $this->extension->getTokenParsers();
         $this->assertInstanceOf(HasRightsTokenParser::class, $tokenParser[0]);
     }
 }

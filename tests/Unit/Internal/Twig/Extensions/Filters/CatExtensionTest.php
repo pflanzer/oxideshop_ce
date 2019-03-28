@@ -4,23 +4,38 @@
  * See LICENSE file for license details.
  */
 
-namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Filters;
+namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions\Filters;
 
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\Filters\CatExtension;
-use PHPUnit\Framework\TestCase;
+use OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions\AbstractExtensionTest;
 
-class CatExtensionTest extends TestCase
+/**
+ * Class CatExtensionTest
+ */
+class CatExtensionTest extends AbstractExtensionTest
 {
+
+    /** @var CatExtension */
+    protected $extension;
+
+    protected $filters = ['cat'];
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function setUp(): void
+    {
+        $this->extension = new CatExtension();
+    }
 
     /**
      * @covers \OxidEsales\EshopCommunity\Internal\Twig\Extensions\Filters\CatExtension::cat
      */
     public function testCat(): void
     {
-        $catFilter = new CatExtension();
         $string = 'foo';
         $cat = 'bar';
-        $actual = $catFilter->cat($string, $cat);
+        $actual = $this->extension->cat($string, $cat);
         $this->assertEquals($string . $cat, $actual);
     }
 }

@@ -8,46 +8,50 @@ namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions;
 
 use OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\IncludeDynamicLogic;
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\IncludeExtension;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Class IncludeExtensionTest
  *
  * @author Tomasz Kowalewski (t.kowalewski@createit.pl)
  */
-class IncludeExtensionTest extends TestCase
+class IncludeExtensionTest extends AbstractExtensionTest
 {
 
     /** @var IncludeExtension */
-    private $includeExtension;
+    protected $extension;
 
+    protected $tags = ['include_dynamic'];
+
+    /**
+     * {@inheritDoc}
+     */
     public function setUp(): void
     {
-        $this->includeExtension = new IncludeExtension(new IncludeDynamicLogic());
+        $this->extension = new IncludeExtension(new IncludeDynamicLogic());
     }
 
     /**
      * @param array $parameters
      * @param array $expected
      *
-     * @covers       IncludeExtension::includeDynamicPrefix
+     * @covers       \OxidEsales\EshopCommunity\Internal\Twig\Extensions\IncludeExtension::includeDynamicPrefix
      * @dataProvider getIncludeDynamicPrefixTests
      */
     public function testIncludeDynamicPrefix(array $parameters, array $expected): void
     {
-        $this->assertEquals($this->includeExtension->includeDynamicPrefix($parameters), $expected);
+        $this->assertEquals($this->extension->includeDynamicPrefix($parameters), $expected);
     }
 
     /**
      * @param array  $parameters
      * @param string $expected
      *
-     * @covers       IncludeExtension::renderForCache
+     * @covers       \OxidEsales\EshopCommunity\Internal\Twig\Extensions\IncludeExtension::renderForCache
      * @dataProvider getRenderForCacheTests
      */
     public function testRenderForCache(array $parameters, string $expected): void
     {
-        $this->assertEquals($this->includeExtension->renderForCache($parameters), $expected);
+        $this->assertEquals($this->extension->renderForCache($parameters), $expected);
     }
 
     /**

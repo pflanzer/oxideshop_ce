@@ -8,26 +8,31 @@ namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions;
 
 use OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\AssignAdvancedLogic;
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\AssignAdvancedExtension;
-use \PHPUnit\Framework\TestCase;
 
-class AssignAdvancedExtensionTest extends TestCase
+/**
+ * Class AssignAdvancedExtensionTest
+ */
+class AssignAdvancedExtensionTest extends AbstractExtensionTest
 {
 
-    /**
-     * @var AssignAdvancedExtension
-     */
-    private $assignAdvancedExtension;
+    /** @var AssignAdvancedExtension */
+    protected $extension;
 
+    protected $functions = ['assign_advanced'];
+
+    /**
+     * {@inheritDoc}
+     */
     protected function setUp(): void
     {
         parent::setUp();
         $assignAdvancedLogic = new AssignAdvancedLogic();
-        $this->assignAdvancedExtension = new AssignAdvancedExtension($assignAdvancedLogic);
+        $this->extension = new AssignAdvancedExtension($assignAdvancedLogic);
     }
 
     public function testAssignAdvanced(): void
     {
-        $a = $this->assignAdvancedExtension->assignAdvanced('foo');
+        $a = $this->extension->assignAdvanced('foo');
         $this->assertEquals('foo', $a);
     }
 }

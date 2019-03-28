@@ -17,6 +17,13 @@ use OxidEsales\EshopCommunity\Internal\Twig\Extensions\UrlExtension;
  */
 class UrlExtensionTest extends AbstractExtensionTest
 {
+
+    /** @var UrlExtension */
+    protected $extension;
+
+    protected $functions = ['seo_url'];
+    protected $filters = ['add_url_parameters'];
+
     /**
      * {@inheritdoc}
      */

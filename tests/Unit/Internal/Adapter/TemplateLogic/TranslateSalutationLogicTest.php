@@ -20,6 +20,9 @@ class TranslateSalutationLogicTest extends UnitTestCase
     /** @var TranslateSalutationLogic */
     private $translateSalutationLogic;
 
+    /**
+     * {@inheritDoc}
+     */
     protected function setUp(): void
     {
         $this->translateSalutationLogic = new TranslateSalutationLogic();

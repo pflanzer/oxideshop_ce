@@ -10,13 +10,19 @@ use OxidEsales\Eshop\Core\Field;
 use OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\TranslateFilterLogic;
 use OxidEsales\TestingLibrary\UnitTestCase;
 
+/**
+ * Class TranslateLogicTest
+ */
 class TranslateLogicTest extends UnitTestCase
 {
 
     /** @var TranslateFilterLogic */
     private $multiLangFilterLogic;
 
-    protected function setUp()
+    /**
+     * {@inheritDoc}
+     */
+    protected function setUp(): void
     {
         parent::setUp();
         $this->multiLangFilterLogic = new TranslateFilterLogic();
@@ -45,7 +51,7 @@ class TranslateLogicTest extends UnitTestCase
      *
      * @dataProvider provider
      */
-    public function testSimpleAssignments($ident, $languageId, $result)
+    public function testSimpleAssignments(string $ident, int $languageId, string $result): void
     {
         $this->setLanguage($languageId);
         $this->assertEquals($result, $this->multiLangFilterLogic->multiLang($ident));
@@ -76,7 +82,7 @@ class TranslateLogicTest extends UnitTestCase
      *
      * @dataProvider withArgumentsProvider
      */
-    public function testAssignmentsWithArguments($ident, $languageId, $arguments, $result)
+    public function testAssignmentsWithArguments(string $ident, int $languageId, $arguments, string $result): void
     {
         $this->setLanguage($languageId);
         $this->assertEquals($result, $this->multiLangFilterLogic->multiLang($ident, $arguments));
@@ -110,7 +116,7 @@ class TranslateLogicTest extends UnitTestCase
      *
      * @dataProvider missingTranslationProviderFrontend
      */
-    public function testTranslateFrontend_isMissingTranslation($isProductiveMode, $ident, $translation)
+    public function testTranslateFrontend_isMissingTranslation(bool $isProductiveMode, string $ident, string $translation): void
     {
         $this->setAdminMode(false);
         $this->setLanguage(1);
@@ -143,7 +149,7 @@ class TranslateLogicTest extends UnitTestCase
      *
      * @dataProvider missingTranslationProviderAdmin
      */
-    public function testTranslateAdmin_isMissingTranslation($ident, $translation)
+    public function testTranslateAdmin_isMissingTranslation(string $ident, string $translation): void
     {
         $this->setLanguage(1);
         $this->setAdminMode(true);

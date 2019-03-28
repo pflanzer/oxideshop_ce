@@ -21,6 +21,9 @@ class FormatDateLogicTest extends TestCase
     /** @var FormatDateLogic */
     private $formDateLogic;
 
+    /**
+     * {@inheritDoc}
+     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -28,7 +31,7 @@ class FormatDateLogicTest extends TestCase
     }
 
     /**
-     * @covers FormatDateLogic::formdate
+     * @covers \OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\FormatDateLogic::formdate
      */
     public function testFormdateWithDatetime(): void
     {
@@ -39,7 +42,7 @@ class FormatDateLogicTest extends TestCase
     }
 
     /**
-     * @covers FormatDateLogic::formdate
+     * @covers \OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\FormatDateLogic::formdate
      */
     public function testFormdateWithTimestamp(): void
     {
@@ -50,7 +53,7 @@ class FormatDateLogicTest extends TestCase
     }
 
     /**
-     * @covers FormatDateLogic::formdate
+     * @covers \OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\FormatDateLogic::formdate
      */
     public function testFormdateWithDate(): void
     {
@@ -61,7 +64,7 @@ class FormatDateLogicTest extends TestCase
     }
 
     /**
-     * @covers FormatDateLogic::formdate
+     * @covers \OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\FormatDateLogic::formdate
      */
     public function testFormdateUsingObject(): void
     {

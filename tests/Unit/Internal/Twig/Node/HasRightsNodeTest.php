@@ -21,7 +21,7 @@ use Twig\Test\NodeTestCase;
 class HasRightsNodeTest extends NodeTestCase
 {
 
-    public function test__construct()
+    public function test__construct(): void
     {
         $parameters = [];
         $parameters[] = new ConstantExpression('name', 1);

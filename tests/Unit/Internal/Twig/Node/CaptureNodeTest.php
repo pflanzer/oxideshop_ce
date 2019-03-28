@@ -10,6 +10,9 @@ use OxidEsales\EshopCommunity\Internal\Twig\Node\CaptureNode;
 use Twig\Node\TextNode;
 use Twig\Test\NodeTestCase;
 
+/**
+ * Class CaptureNodeTest
+ */
 class CaptureNodeTest extends NodeTestCase
 {
 
@@ -18,18 +21,31 @@ class CaptureNodeTest extends NodeTestCase
     private $tag = 'capture';
     private $body;
 
+    /**
+     * CaptureNodeTest constructor.
+     *
+     * @param string $name
+     * @param array  $data
+     * @param string $dataName
+     */
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
         $this->body = new TextNode("Lorem Ipsum", 1);
     }
 
-    public function getTests()
+    /**
+     * @return array
+     */
+    public function getTests(): array
     {
         return array_merge($this->getTestForCaptureWithAttributeName(), $this->getTestForCaptureWithAttributeAssign(), $this->getTestForCaptureWithAttributeAppend());
     }
 
-    private function getTestForCaptureWithAttributeName()
+    /**
+     * @return array
+     */
+    private function getTestForCaptureWithAttributeName(): array
     {
         $tests = [];
         $nodeForCaptureName = new CaptureNode('name', $this->variableName, $this->body, $this->line, $this->tag);
@@ -47,7 +63,10 @@ EOF
         return $tests;
     }
 
-    private function getTestForCaptureWithAttributeAssign()
+    /**
+     * @return array
+     */
+    private function getTestForCaptureWithAttributeAssign(): array
     {
         $nodeForCaptureAssign = new CaptureNode('assign', $this->variableName, $this->body, $this->line, $this->tag);
         $tests[] = [$nodeForCaptureAssign, <<<EOF
@@ -65,7 +84,10 @@ EOF
         return $tests;
     }
 
-    private function getTestForCaptureWithAttributeAppend()
+    /**
+     * @return array
+     */
+    private function getTestForCaptureWithAttributeAppend(): array
     {
         $nodeForCaptureAssign = new CaptureNode('append', $this->variableName, $this->body, $this->line, $this->tag);
         $tests[] = [$nodeForCaptureAssign, <<<EOF

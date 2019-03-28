@@ -6,7 +6,6 @@
 
 namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Node;
 
-
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\IncludeExtension;
 use OxidEsales\EshopCommunity\Internal\Twig\Node\IncludeDynamicNode;
 use Twig\Node\Expression\ArrayExpression;

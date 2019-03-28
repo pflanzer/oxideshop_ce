@@ -18,6 +18,9 @@ use Twig\Parser;
 use Twig\Source;
 use Twig\Token;
 
+/**
+ * Class HasRightsTokenParserTest
+ */
 class HasRightsTokenParserTest extends TestCase
 {
 
@@ -36,7 +39,7 @@ class HasRightsTokenParserTest extends TestCase
     }
 
     /**
-     * @covers \OxidEsales\EshopCommunity\Internal\Twig\TokenParser\HasRightsParser:getTag
+     * @covers \OxidEsales\EshopCommunity\Internal\Twig\TokenParser\HasRightsTokenParser::getTag
      */
     public function testGetTag()
     {
@@ -44,7 +47,7 @@ class HasRightsTokenParserTest extends TestCase
     }
 
     /**
-     * @covers \OxidEsales\EshopCommunity\Internal\Twig\TokenParser\HasRightsParser:decideMyTagFork
+     * @covers \OxidEsales\EshopCommunity\Internal\Twig\TokenParser\HasRightsTokenParser::decideMyTagFork
      */
     public function testDecideMyTagForkIncorrect()
     {
@@ -53,7 +56,7 @@ class HasRightsTokenParserTest extends TestCase
     }
 
     /**
-     * @covers \OxidEsales\EshopCommunity\Internal\Twig\TokenParser\HasRightsParser:decideMyTagFork
+     * @covers \OxidEsales\EshopCommunity\Internal\Twig\TokenParser\HasRightsTokenParser::decideMyTagFork
      */
     public function testDecideMyTagForkCorrect()
     {
@@ -62,7 +65,7 @@ class HasRightsTokenParserTest extends TestCase
     }
 
     /**
-     * @covers \OxidEsales\EshopCommunity\Internal\Twig\TokenParser\HasRightsParser:parse
+     * @covers \OxidEsales\EshopCommunity\Internal\Twig\TokenParser\HasRightsTokenParser::parse
      */
     public function testParse()
     {
@@ -84,7 +87,7 @@ class HasRightsTokenParserTest extends TestCase
     }
 
     /**
-     * @covers \OxidEsales\EshopCommunity\Internal\Twig\TokenParser\HasRightsParser:parse
+     * @covers \OxidEsales\EshopCommunity\Internal\Twig\TokenParser\HasRightsTokenParser::parse
      * @expectedException \Twig_Error_Syntax
      */
     public function testParseException()

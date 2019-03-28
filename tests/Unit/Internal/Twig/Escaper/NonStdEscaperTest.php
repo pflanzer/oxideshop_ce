@@ -25,7 +25,10 @@ class NonStdEscaperTest extends UnitTestCase
     /** @var Environment */
     private $environment;
 
-    public function setUp()
+    /**
+     * {@inheritDoc}
+     */
+    public function setUp(): void
     {
         parent::setUp();
         $this->escaper = new NonStdEscaper();
@@ -51,12 +54,12 @@ class NonStdEscaperTest extends UnitTestCase
      *
      * @dataProvider escapeProvider
      */
-    public function testEscape($string, $expected)
+    public function testEscape(string $string, string $expected): void
     {
         $this->assertEquals($expected, $this->escaper->escape($this->environment, $string, 'UTF-8'));
     }
 
-    public function testGetStrategy()
+    public function testGetStrategy(): void
     {
         $this->assertEquals('nonstd', $this->escaper->getStrategy());
     }

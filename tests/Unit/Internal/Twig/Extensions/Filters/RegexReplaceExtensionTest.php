@@ -7,16 +7,19 @@
 namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions\Filters;
 
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\Filters\RegexReplaceExtension;
-use OxidEsales\TestingLibrary\UnitTestCase;
-use Twig\Environment;
-use Twig\Loader\ArrayLoader;
+use OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions\AbstractExtensionTest;
 
-class RegexReplaceExtensionTest extends UnitTestCase
+class RegexReplaceExtensionTest extends AbstractExtensionTest
 {
     /** @var RegexReplaceExtension */
     protected $extension;
 
-    public function setUp()
+    protected $filters = ['regex_replace'];
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUp(): void
     {
         $this->extension = new RegexReplaceExtension();
     }
@@ -37,23 +40,8 @@ class RegexReplaceExtensionTest extends UnitTestCase
      *
      * @dataProvider dummyTemplateProvider
      */
-    public function testIfPhpFunctionsAreCallable(string $template, string $expected)
+    public function testIfPhpFunctionsAreCallable(string $template, string $expected): void
     {
         $this->assertEquals($expected, $this->getTemplate($template)->render([]));
-    }
-
-    /**
-     * @param string $template
-     *
-     * @return \Twig_Template
-     */
-    private function getTemplate(string $template): \Twig_Template
-    {
-        $loader = new ArrayLoader(['index' => $template]);
-
-        $twig = new Environment($loader, ['debug' => true, 'cache' => false]);
-        $twig->addExtension($this->extension);
-
-        return $twig->loadTemplate('index');
     }
 }

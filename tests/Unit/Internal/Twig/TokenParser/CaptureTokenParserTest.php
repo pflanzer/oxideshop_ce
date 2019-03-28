@@ -14,6 +14,9 @@ use Twig\Parser;
 use Twig\Source;
 use Twig\Token;
 
+/**
+ * Class CaptureTokenParserTest
+ */
 class CaptureTokenParserTest extends TestCase
 {
 
@@ -42,7 +45,7 @@ class CaptureTokenParserTest extends TestCase
     }
 
     /**
-     * @covers CaptureTokenParser::getTag
+     * @covers \OxidEsales\EshopCommunity\Internal\Twig\TokenParser\CaptureTokenParser::getTag
      */
     public function testGetTag()
     {
@@ -50,7 +53,7 @@ class CaptureTokenParserTest extends TestCase
     }
 
     /**
-     * @covers CaptureTokenParser::decideBlockEnd
+     * @covers \OxidEsales\EshopCommunity\Internal\Twig\TokenParser\CaptureTokenParser::decideBlockEnd
      */
     public function testDecideBlockEnd()
     {
@@ -64,7 +67,7 @@ class CaptureTokenParserTest extends TestCase
     /**
      * @param $source
      *
-     * @covers       CaptureTokenParser::parse
+     * @covers       \OxidEsales\EshopCommunity\Internal\Twig\TokenParser\CaptureTokenParser::parse
      * @dataProvider templateSourceCodeProvider
      */
     public function testParse($source)
@@ -97,7 +100,7 @@ class CaptureTokenParserTest extends TestCase
     }
 
     /**
-     * @covers       CaptureTokenParser::parse
+     * @covers       \OxidEsales\EshopCommunity\Internal\Twig\TokenParser\CaptureTokenParser::parse
      * @expectedException \Twig_Error_Syntax
      */
     public function testTwigErrorSyntaxIsThrown()
@@ -109,7 +112,7 @@ class CaptureTokenParserTest extends TestCase
     }
 
     /**
-     * @covers CaptureTokenParser::parse
+     * @covers \OxidEsales\EshopCommunity\Internal\Twig\TokenParser\CaptureTokenParser::parse
      * @expectedException \Twig_Error_Syntax
      */
     public function testParseException()

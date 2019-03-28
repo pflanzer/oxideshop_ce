@@ -10,10 +10,14 @@ use OxidEsales\EshopCommunity\Internal\Twig\TokenParser\IfContentTokenParser;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use Twig\Loader\LoaderInterface;
+use Twig\Node\Node;
 use Twig\Parser;
 use Twig\Source;
 use Twig\Token;
 
+/**
+ * Class IfContentTokenParserTest
+ */
 class IfContentTokenParserTest extends TestCase
 {
 
@@ -42,7 +46,7 @@ class IfContentTokenParserTest extends TestCase
     }
 
     /**
-     * @covers IfContentTokenParser::getTag
+     * @covers \OxidEsales\EshopCommunity\Internal\Twig\TokenParser\IfContentTokenParser::getTag
      */
     public function testGetTag(): void
     {
@@ -50,9 +54,9 @@ class IfContentTokenParserTest extends TestCase
     }
 
     /**
-     * @covers IfContentTokenParser::parse
+     * @covers \OxidEsales\EshopCommunity\Internal\Twig\TokenParser\IfContentTokenParser::parse
      */
-    public function testParse(): void
+    public function testParseIdent(): void
     {
         $source = "{% ifcontent ident \"oxsomething\" set myVar %}Lorem Ipsum{% endifcontent %}";
 
@@ -63,15 +67,72 @@ class IfContentTokenParserTest extends TestCase
 
         $bodyNode = $node->getNode('body');
 
+        /** @var Node $ifContentNode */
         $ifContentNode = $bodyNode->getIterator()[0];
 
         $this->assertTrue($ifContentNode->hasNode('body'));
         $this->assertTrue($ifContentNode->hasNode('variable'));
         $this->assertTrue($ifContentNode->hasNode('ident'));
+        $this->assertFalse($ifContentNode->hasNode('oxid'));
     }
 
     /**
-     * @covers IfContentTokenParser::decideBlockEnd
+     * @covers \OxidEsales\EshopCommunity\Internal\Twig\TokenParser\IfContentTokenParser::parse
+     */
+    public function testParseOxid(): void
+    {
+        $source = "{% ifcontent oxid \"oxsomething\" set myVar %}Lorem Ipsum{% endifcontent %}";
+
+        $stream = $this->environment->tokenize(new Source($source, 'index'));
+        $node = $this->parser->parse($stream);
+
+        $this->assertTrue($node->hasNode('body'));
+
+        $bodyNode = $node->getNode('body');
+
+        /** @var Node $ifContentNode */
+        $ifContentNode = $bodyNode->getIterator()[0];
+
+        $this->assertTrue($ifContentNode->hasNode('body'));
+        $this->assertTrue($ifContentNode->hasNode('variable'));
+        $this->assertFalse($ifContentNode->hasNode('ident'));
+        $this->assertTrue($ifContentNode->hasNode('oxid'));
+    }
+
+    /**
+     * @expectedException  Twig\Error\SyntaxError
+     * @expectedExceptionMessage No Ident nor Oxid provided for ifcontent
+     */
+    public function testParseNoIdentAndOxid()
+    {
+        $source = "{% ifcontent set myVar %}Lorem Ipsum{% endifcontent %}";
+        $stream = $this->environment->tokenize(new Source($source, 'index'));
+        $this->parser->parse($stream);
+    }
+
+    public function testParseNoVar()
+    {
+        $source = "{% ifcontent ident \"oxsomething\" %}Lorem Ipsum{% endifcontent %}";
+
+        $stream = $this->environment->tokenize(new Source($source, 'index'));
+        $node = $this->parser->parse($stream);
+
+        $this->assertTrue($node->hasNode('body'));
+
+        $bodyNode = $node->getNode('body');
+
+        /** @var Node $ifContentNode */
+        $ifContentNode = $bodyNode->getIterator()[0];
+
+        $this->assertTrue($ifContentNode->hasNode('body'));
+        $this->assertTrue($ifContentNode->hasNode('variable'));
+        $this->assertTrue($ifContentNode->hasNode('ident'));
+
+        $this->assertEquals('oCont', $ifContentNode->getNode('variable')->getAttribute('name'));
+    }
+
+    /**
+     * @covers \OxidEsales\EshopCommunity\Internal\Twig\TokenParser\IfContentTokenParser::decideBlockEnd
      */
     public function testDecideBlockEnd(): void
     {

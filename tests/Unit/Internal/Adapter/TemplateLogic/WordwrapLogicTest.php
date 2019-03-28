@@ -20,7 +20,10 @@ class WordwrapLogicTest extends UnitTestCase
     /** @var WordwrapLogic */
     private $wordWrapLogic;
 
-    protected function setUp()
+    /**
+     * {@inheritDoc}
+     */
+    protected function setUp(): void
     {
         parent::setUp();
         $this->wordWrapLogic = new WordwrapLogic();
@@ -50,7 +53,7 @@ class WordwrapLogicTest extends UnitTestCase
      *
      * @dataProvider nonAsciiProvider
      */
-    public function testWordWrapWithNonAscii($expected, $string, $length = 80, $wrapper = "\n", $cut = false)
+    public function testWordWrapWithNonAscii(string $expected, string $string, int $length = 80, string $wrapper = "\n", bool $cut = false): void
     {
         $this->assertEquals($expected, $this->wordWrapLogic->wordWrap($string, $length, $wrapper, $cut));
     }
@@ -90,7 +93,7 @@ class WordwrapLogicTest extends UnitTestCase
      *
      * @dataProvider asciiProvider
      */
-    public function testWordWrapAscii($expected, $string, $length = 80, $wrapper = "\n", $cut = false)
+    public function testWordWrapAscii(string $expected, string $string, int $length = 80, string $wrapper = "\n", bool $cut = false): void
     {
         $this->assertEquals($expected, $this->wordWrapLogic->wordWrap($string, $length, $wrapper, $cut));
     }

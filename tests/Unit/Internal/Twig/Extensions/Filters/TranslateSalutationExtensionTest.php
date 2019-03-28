@@ -21,6 +21,11 @@ class TranslateSalutationExtensionTest extends AbstractExtensionTest
     /** @var TranslateSalutationExtension */
     protected $extension;
 
+    protected $filters = ['translate_salutation'];
+
+    /**
+     * {@inheritDoc}
+     */
     protected function setUp(): void
     {
         parent::setUp();

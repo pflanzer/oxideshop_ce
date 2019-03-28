@@ -9,13 +9,16 @@ namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Adapter\TemplateLogic;
 use OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\DateFormatHelper;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class DateFormatHelperTest
+ */
 class DateFormatHelperTest extends TestCase
 {
 
     /**
      * @return array
      */
-    public function provider()
+    public function provider(): array
     {
         return [
             ['%D %h %n %r %R %t %T', 1543850519, "%m/%d/%y %b 
@@ -30,13 +33,13 @@ class DateFormatHelperTest extends TestCase
 
     /**
      * @param string $format
-     * @param int    $timestamp
+     * @param mixed  $timestamp
      * @param string $expectedFormat
      *
      * @dataProvider provider
      * @covers       \OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\DateFormatHelper::fixWindowsTimeFormat
      */
-    public function testFixWindowsTimeFormat($format, $timestamp, $expectedFormat)
+    public function testFixWindowsTimeFormat(string $format, $timestamp, string $expectedFormat): void
     {
         $dateFormatHelper = new DateFormatHelper();
         $actualFormat = $dateFormatHelper->fixWindowsTimeFormat($format, $timestamp);

@@ -8,12 +8,31 @@ namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extension\Filters;
 
 use OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\FileSizeLogic;
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\Filters\FileSizeExtension;
-use PHPUnit\Framework\TestCase;
+use OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions\AbstractExtensionTest;
 
-class FileSizeExtensionTest extends TestCase
+/**
+ * Class FileSizeExtensionTest
+ */
+class FileSizeExtensionTest extends AbstractExtensionTest
 {
 
-    public function provider()
+    /** @var FileSizeExtension */
+    protected $extension;
+
+    protected $filters = ['file_size'];
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function setUp(): void
+    {
+        $this->extension = new FileSizeExtension(new FileSizeLogic());
+    }
+
+    /**
+     * @return array
+     */
+    public function provider(): array
     {
         return [
             [1023, '1023 B'],
@@ -24,17 +43,15 @@ class FileSizeExtensionTest extends TestCase
     }
 
     /**
-     * @param string $fileSize
+     * @param int $fileSize
      * @param string $expectedFileSize
      *
      * @dataProvider provider
      * @covers \OxidEsales\EshopCommunity\Internal\Twig\Extensions\Filters\FileSizeExtension::fileSize
      */
-    public function testFileSize($fileSize, $expectedFileSize)
+    public function testFileSize(int $fileSize, string $expectedFileSize): void
     {
-        $fileSizeLogic = new FileSizeLogic();
-        $fileSizeExtension = new FileSizeExtension($fileSizeLogic);
-        $actualFileSize = $fileSizeExtension->fileSize($fileSize);
+        $actualFileSize = $this->extension->fileSize($fileSize);
         $this->assertEquals($expectedFileSize, $actualFileSize);
     }
 }

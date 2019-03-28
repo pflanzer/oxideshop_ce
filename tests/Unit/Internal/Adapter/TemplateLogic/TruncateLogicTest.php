@@ -20,6 +20,9 @@ class TruncateLogicTest extends TestCase
     /** @var TruncateLogic */
     private $truncateLogic;
 
+    /**
+     * {@inheritDoc}
+     */
     public function setUp(): void
     {
         $this->truncateLogic = new TruncateLogic();

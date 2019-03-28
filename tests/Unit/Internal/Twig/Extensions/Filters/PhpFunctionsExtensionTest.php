@@ -7,17 +7,20 @@
 namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions\Filters;
 
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\Filters\PhpFunctionsExtension;
-use OxidEsales\TestingLibrary\UnitTestCase;
-use Twig\Environment;
-use Twig\Loader\ArrayLoader;
+use OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions\AbstractExtensionTest;
 
-class PhpFunctionsExtensionTest extends UnitTestCase
+class PhpFunctionsExtensionTest extends AbstractExtensionTest
 {
 
     /** @var PhpFunctionsExtension */
     protected $extension;
 
-    public function setUp()
+    protected $filters = ['parse_url', 'oxNew', 'strtotime', 'is_array', 'urlencode', 'addslashes'];
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUp(): void
     {
         $this->extension = new PhpFunctionsExtension();
     }
@@ -42,24 +45,8 @@ class PhpFunctionsExtensionTest extends UnitTestCase
      *
      * @dataProvider dummyTemplateProvider
      */
-    public function testIfPhpFunctionsAreCallable(string $template, string $expected)
+    public function testIfPhpFunctionsAreCallable(string $template, string $expected): void
     {
         $this->assertEquals($expected, $this->getTemplate($template)->render([]));
-    }
-
-    /**
-     * @param string $template
-     *
-     * @return \Twig_Template
-     */
-    private function getTemplate(string $template): \Twig_Template
-    {
-        $loader = new ArrayLoader(['index' => $template]);
-
-        $twig = new Environment($loader, ['debug' => true, 'cache' => false]);
-        $twig->addExtension($this->extension);
-        $twig->addGlobal('date', date_create("2013-03-15"));
-
-        return $twig->loadTemplate('index');
     }
 }

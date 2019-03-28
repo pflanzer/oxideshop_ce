@@ -51,7 +51,7 @@ class ScriptLogicTest extends TestCase
     }
 
     /**
-     * @covers ScriptLogic::include
+     * @covers \OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\ScriptLogic::include
      *
      * @expectedException PHPUnit\Framework\Error\Warning
      */
@@ -61,7 +61,7 @@ class ScriptLogicTest extends TestCase
     }
 
     /**
-     * @covers ScriptLogic::include
+     * @covers \OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\ScriptLogic::include
      */
     public function testIncludeFileExists(): void
     {
@@ -75,7 +75,7 @@ class ScriptLogicTest extends TestCase
     }
 
     /**
-     * @covers ScriptLogic::add
+     * @covers \OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\ScriptLogic::add
      */
     public function testAddNotDynamic(): void
     {
@@ -88,7 +88,7 @@ class ScriptLogicTest extends TestCase
     }
 
     /**
-     * @covers ScriptLogic::add
+     * @covers \OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\ScriptLogic::add
      */
     public function testAddDynamic(): void
     {
@@ -104,7 +104,7 @@ class ScriptLogicTest extends TestCase
      * @param string $script
      * @param string $output
      *
-     * @covers       ScriptLogic::render
+     * @covers       \OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\ScriptLogic::render
      * @dataProvider addWidgetProvider
      */
     public function testRenderAddWidget(string $script, string $output): void
@@ -134,7 +134,7 @@ class ScriptLogicTest extends TestCase
     }
 
     /**
-     * @covers ScriptLogic::render
+     * @covers \OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\ScriptLogic::render
      */
     public function testRenderIncludeWidget(): void
     {

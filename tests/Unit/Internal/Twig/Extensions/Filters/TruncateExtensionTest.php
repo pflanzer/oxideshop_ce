@@ -21,6 +21,11 @@ class TruncateExtensionTest extends AbstractExtensionTest
     /** @var TruncateExtension */
     protected $extension;
 
+    protected $filters = ['truncate'];
+
+    /**
+     * {@inheritDoc}
+     */
     public function setUp(): void
     {
         $this->extension = new TruncateExtension(new TruncateLogic());

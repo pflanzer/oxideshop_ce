@@ -8,19 +8,24 @@ namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions;
 
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\CaptureExtension;
 use OxidEsales\EshopCommunity\Internal\Twig\TokenParser\CaptureTokenParser;
-use PHPUnit\Framework\TestCase;
 
-class CaptureExtensionTest extends TestCase
+/**
+ * Class CaptureExtensionTest
+ */
+class CaptureExtensionTest extends AbstractExtensionTest
 {
 
-    /**
-     * @var CaptureExtension
-     */
-    private $CaptureExtension;
+    /** @var CaptureExtension */
+    protected $extension;
 
+    protected $tags = ['capture'];
+
+    /**
+     * {@inheritDoc}
+     */
     protected function setUp()
     {
-        $this->CaptureExtension = new CaptureExtension();
+        $this->extension = new CaptureExtension();
         parent::setUp();
     }
 
@@ -29,7 +34,7 @@ class CaptureExtensionTest extends TestCase
      */
     public function testGetTokenParsers()
     {
-        $tokenParser = $this->CaptureExtension->getTokenParsers();
+        $tokenParser = $this->extension->getTokenParsers();
         $this->assertInstanceOf(CaptureTokenParser::class, $tokenParser[0]);
     }
 }
