@@ -1,4 +1,8 @@
 <?php
+/**
+ * Copyright © OXID eSales AG. All rights reserved.
+ * See LICENSE file for license details.
+ */
 
 namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions;
 
@@ -11,6 +15,11 @@ use OxidEsales\EshopCommunity\Internal\Twig\Extensions\SmartyCycleExtension;
  */
 class SmartyCycleExtensionTest extends AbstractExtensionTest
 {
+
+    /** @var SmartyCycleExtension */
+    protected $extension;
+
+    protected $functions = ['smarty_cycle'];
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -27,9 +36,9 @@ class SmartyCycleExtensionTest extends AbstractExtensionTest
      * @param string $expected
      * @param array  $variables
      *
-     * @dataProvider getStaticCycle
+     * @dataProvider getSmartyCycle
      */
-    public function testStaticCycle(string $template, string $expected, array $variables = []): void
+    public function testSmartyCycle(string $template, string $expected, array $variables = []): void
     {
         $this->assertEquals($expected, $this->getTemplate($template)->render($variables));
     }
@@ -37,7 +46,7 @@ class SmartyCycleExtensionTest extends AbstractExtensionTest
     /**
      * @return array
      */
-    public function getStaticCycle(): array
+    public function getSmartyCycle(): array
     {
         return [
             [
@@ -83,7 +92,30 @@ class SmartyCycleExtensionTest extends AbstractExtensionTest
                 "{{ smarty_cycle(values) }}",
                 "aab",
                 ['values' => ["a", "b"]]
+            ],
+            [
+                "{{ smarty_cycle(valuesA) }}" .
+                "{{ smarty_cycle(valuesB) }}",
+                "ac",
+                ['valuesA' => ["a", "b"], 'valuesB' => ["c", "d"]]
+            ],
+            [
+                "{{ smarty_cycle(values, { delimiter: ':' }) }}" .
+                "{{ smarty_cycle() }}",
+                "ab",
+                ['values' => 'a:b']
             ]
         ];
+    }
+
+    /**
+     * @expectedException Twig\Error\Error
+     * @expectedExceptionMessage static_cycle: missing 'values' parameter
+     */
+    public function testSmartyCycleWithMissingValuesParameter(): void
+    {
+        $template = "{{ smarty_cycle() }}";
+
+        $this->getTemplate($template)->render([]);
     }
 }

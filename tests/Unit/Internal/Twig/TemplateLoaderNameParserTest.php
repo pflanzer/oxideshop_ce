@@ -97,6 +97,15 @@ class TemplateLoaderNameParserTest extends TestCase
     }
 
     /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage Invalid template name.
+     */
+    public function testGetKeyWithInvalidTemplateName(): void
+    {
+        $this->templateLoaderNameParser->getKey('invalid_template_name');
+    }
+
+    /**
      * @return array
      */
     public function getInvalidNameTests(): array

@@ -1,17 +1,19 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: jskoczek
- * Date: 22/08/18
- * Time: 15:25
+ * Copyright © OXID eSales AG. All rights reserved.
+ * See LICENSE file for license details.
  */
 
 namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig;
 
 use OxidEsales\EshopCommunity\Internal\Twig\TwigEngineConfiguration;
 use OxidEsales\EshopCommunity\Internal\Twig\TwigContextInterface;
+use PHPUnit\Framework\TestCase;
 
-class TwigEngineConfigurationTest extends \PHPUnit\Framework\TestCase
+/**
+ * Class TwigEngineConfigurationTest
+ */
+class TwigEngineConfigurationTest extends TestCase
 {
 
     public function testGetParameters(): void

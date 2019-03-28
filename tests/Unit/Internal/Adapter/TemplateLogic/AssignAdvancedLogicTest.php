@@ -9,14 +9,18 @@ namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Adapter\TemplateLogic;
 use OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\AssignAdvancedLogic;
 use \PHPUnit\Framework\TestCase;
 
+/**
+ * Class AssignAdvancedLogicTest
+ */
 class AssignAdvancedLogicTest extends TestCase
 {
 
-    /**
-     * @var AssignAdvancedLogic
-     */
+    /** @var AssignAdvancedLogic */
     private $assignAdvancedLogic;
 
+    /**
+     * {@inheritDoc}
+     */
     protected function setUp(): void
     {
         parent::setUp();

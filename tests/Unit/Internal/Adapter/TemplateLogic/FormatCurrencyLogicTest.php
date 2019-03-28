@@ -20,7 +20,10 @@ class FormatCurrencyLogicTest extends UnitTestCase
     /** @var FormatCurrencyLogic */
     private $numberFormatLogic;
 
-    protected function setUp()
+    /**
+     * {@inheritDoc}
+     */
+    protected function setUp(): void
     {
         $this->numberFormatLogic = new FormatCurrencyLogic();
         parent::setUp();
@@ -33,7 +36,7 @@ class FormatCurrencyLogicTest extends UnitTestCase
      *
      * @dataProvider numberFormatProvider
      */
-    public function testNumberFormat($format, $value, $expected)
+    public function testNumberFormat(string $format, $value, string $expected): void
     {
         $this->assertEquals($expected, $this->numberFormatLogic->numberFormat($format, $value));
     }

@@ -4,30 +4,36 @@
  * See LICENSE file for license details.
  */
 
-namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Adapter;
+namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions;
 
 use OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\InputHelpLogic;
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\InputHelpExtension;
 
-class InputHelpExtensionTest extends \OxidTestCase
+/**
+ * Class InputHelpExtensionTest
+ */
+class InputHelpExtensionTest extends AbstractExtensionTest
 {
 
-    /**
-     * @var InputHelpExtension
-     */
-    private $inputHelpExtension;
+    /** @var InputHelpExtension */
+    protected $extension;
 
-    protected function setUp()
+    protected $functions = ['help_id', 'help_text'];
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function setUp(): void
     {
         parent::setUp();
         $inputHelpLogic = new InputHelpLogic();
-        $this->InputHelpExtension = new InputHelpExtension($inputHelpLogic);
+        $this->extension = new InputHelpExtension($inputHelpLogic);
     }
 
     /**
      * @return array
      */
-    public function getIdentProvider()
+    public function getIdentProvider(): array
     {
         return array(
             [[], 1, false, null],
@@ -36,25 +42,25 @@ class InputHelpExtensionTest extends \OxidTestCase
     }
 
     /**
-     * @param $params
-     * @param $iLang
-     * @param $blAdmin
-     * @param $expected
+     * @param array  $params
+     * @param int    $iLang
+     * @param bool   $blAdmin
+     * @param string $expected
      *
      * @dataProvider getIdentProvider
      * @covers       \OxidEsales\EshopCommunity\Internal\Twig\Extensions\InputHelpExtension::getHelpId
      */
-    public function testGetIdent($params, $iLang, $blAdmin, $expected)
+    public function testGetIdent(array $params, int $iLang, bool $blAdmin, string $expected = null): void
     {
         $this->setLanguage($iLang);
         $this->setAdminMode($blAdmin);
-        $this->assertEquals($expected, $this->InputHelpExtension->getHelpId($params));
+        $this->assertEquals($expected, $this->extension->getHelpId($params));
     }
 
     /**
      * @return array
      */
-    public function getHelpTextProvider()
+    public function getHelpTextProvider(): array
     {
         return array(
             [[], 1, false, null],
@@ -67,19 +73,19 @@ class InputHelpExtensionTest extends \OxidTestCase
     }
 
     /**
-     * @param $params
-     * @param $iLang
-     * @param $blAdmin
-     * @param $expected
+     * @param array  $params
+     * @param int    $iLang
+     * @param bool   $blAdmin
+     * @param string $expected
      *
      * @dataProvider getHelpTextProvider
      * @covers       \OxidEsales\EshopCommunity\Internal\Twig\Extensions\InputHelpExtension::getHelpText
      */
-    public function testgetHelpText($params, $iLang, $blAdmin, $expected)
+    public function testGetHelpText(array $params, int $iLang, bool $blAdmin, string $expected = null): void
     {
         $this->setLanguage($iLang);
         $this->setAdminMode($blAdmin);
-        $this->assertEquals($expected, $this->InputHelpExtension->getHelpText($params));
+        $this->assertEquals($expected, $this->extension->getHelpText($params));
     }
 
 }

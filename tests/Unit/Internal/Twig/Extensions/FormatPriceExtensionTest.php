@@ -9,9 +9,20 @@ namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions;
 use OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\FormatPriceLogic;
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\FormatPriceExtension;
 
+/**
+ * Class FormatPriceExtensionTest
+ */
 class FormatPriceExtensionTest extends AbstractExtensionTest
 {
 
+    /** @var FormatPriceExtension */
+    protected $extension;
+
+    protected $functions = ['format_price'];
+
+    /**
+     * {@inheritDoc}
+     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -31,11 +42,13 @@ class FormatPriceExtensionTest extends AbstractExtensionTest
     }
 
     /**
+     * @param string $template
+     * @param string $expected
      *
      * @dataProvider priceProvider
-     * @covers \OxidEsales\EshopCommunity\Internal\Twig\Extensions\FormatPriceExtension::formatPrice
+     * @covers       \OxidEsales\EshopCommunity\Internal\Twig\Extensions\FormatPriceExtension::formatPrice
      */
-    public function testFormatPrice($template, $expected): void
+    public function testFormatPrice(string $template, string $expected): void
     {
         $this->assertEquals($expected, $this->getTemplate($template)->render([]));
     }

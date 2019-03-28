@@ -102,6 +102,33 @@ class ContentTemplateLoaderTest extends TestCase
     }
 
     /**
+     * @expectedException Twig\Error\LoaderError
+     * @expectedExceptionMessage Template with ident 'nonExisting' not found.
+     */
+    public function testGetSourceContextNoTemplate(): void
+    {
+        $this->contentTemplateLoader->getSourceContext('content::ident::nonExisting');
+    }
+
+    /**
+     * @expectedException Twig\Error\LoaderError
+     * @expectedExceptionMessage Template is not active.
+     */
+    public function testGetSourceContextInactiveTemplate(): void
+    {
+        $this->contentTemplateLoader->getSourceContext('content::ident::notValid');
+    }
+
+    /**
+     * @expectedException Twig\Error\LoaderError
+     * @expectedExceptionMessage Cannot load template. Name is invalid.
+     */
+    public function testGetSourceContextInvalidPath(): void
+    {
+        $this->contentTemplateLoader->getSourceContext('content::ident_invalid_path');
+    }
+
+    /**
      * testExists
      */
     public function testExists(): void

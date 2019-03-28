@@ -22,7 +22,12 @@ class TranslateExtensionTest extends AbstractExtensionTest
     /** @var TranslateExtension */
     protected $extension;
 
-    public function setUp()
+    protected $filters = ['translate'];
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUp(): void
     {
         $this->extension = new TranslateExtension(new TranslateFilterLogic());
     }
@@ -50,7 +55,7 @@ class TranslateExtensionTest extends AbstractExtensionTest
      *
      * @dataProvider simpleTranslatingProvider
      */
-    public function testSimpleTranslating(string $template, int $languageId, string $expected)
+    public function testSimpleTranslating(string $template, int $languageId, string $expected): void
     {
         $this->setLanguage($languageId);
         $this->assertEquals($expected, $this->getTemplate($template)->render([]));
@@ -80,7 +85,7 @@ class TranslateExtensionTest extends AbstractExtensionTest
      *
      * @dataProvider withArgumentsProvider
      */
-    public function testTranslatingWithArguments(string $template, int $languageId, string $expected)
+    public function testTranslatingWithArguments(string $template, int $languageId, string $expected): void
     {
         $this->setLanguage($languageId);
         $this->assertEquals($expected, $this->getTemplate($template)->render([]));
@@ -106,7 +111,7 @@ class TranslateExtensionTest extends AbstractExtensionTest
      *
      * @dataProvider missingTranslationProviderFrontend
      */
-    public function testTranslateFrontend_isMissingTranslation(bool $isProductiveMode, string $template, string $expected)
+    public function testTranslateFrontend_isMissingTranslation(bool $isProductiveMode, string $template, string $expected): void
     {
         $this->setAdminMode(false);
         $this->setLanguage(1);
@@ -136,7 +141,7 @@ class TranslateExtensionTest extends AbstractExtensionTest
      *
      * @dataProvider missingTranslationProviderAdmin
      */
-    public function testTranslateAdmin_isMissingTranslation(string $template, string $expected)
+    public function testTranslateAdmin_isMissingTranslation(string $template, string $expected): void
     {
         $this->setLanguage(1);
         $this->setAdminMode(true);

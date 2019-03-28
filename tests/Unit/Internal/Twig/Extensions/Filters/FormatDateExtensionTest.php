@@ -4,11 +4,12 @@
  * See LICENSE file for license details.
  */
 
-namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions;
+namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions\Filters;
 
 use OxidEsales\Eshop\Core\Field;
 use OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\FormatDateLogic;
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\Filters\FormatDateExtension;
+use OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions\AbstractExtensionTest;
 
 /**
  * Class FormatDateExtensionTest
@@ -18,6 +19,14 @@ use OxidEsales\EshopCommunity\Internal\Twig\Extensions\Filters\FormatDateExtensi
 class FormatDateExtensionTest extends AbstractExtensionTest
 {
 
+    /** @var FormatDateExtension */
+    protected $extension;
+
+    protected $filters = ['format_date'];
+
+    /**
+     * {@inheritDoc}
+     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -25,7 +34,7 @@ class FormatDateExtensionTest extends AbstractExtensionTest
     }
 
     /**
-     * @covers FormatDateExtension::form_date
+     * @covers \OxidEsales\EshopCommunity\Internal\Twig\Extensions\Filters\FormatDateExtension::formatDate
      */
     public function testFormDateWithDatetime(): void
     {
@@ -36,7 +45,7 @@ class FormatDateExtensionTest extends AbstractExtensionTest
     }
 
     /**
-     * @covers FormatDateExtension::form_date
+     * @covers \OxidEsales\EshopCommunity\Internal\Twig\Extensions\Filters\FormatDateExtension::formatDate
      */
     public function testFormDateWithTimestamp(): void
     {
@@ -47,7 +56,7 @@ class FormatDateExtensionTest extends AbstractExtensionTest
     }
 
     /**
-     * @covers FormatDateExtension::form_date
+     * @covers \OxidEsales\EshopCommunity\Internal\Twig\Extensions\Filters\FormatDateExtension::formatDate
      */
     public function testFormDateWithDate(): void
     {
@@ -58,7 +67,7 @@ class FormatDateExtensionTest extends AbstractExtensionTest
     }
 
     /**
-     * @covers FormatDateExtension::form_date
+     * @covers \OxidEsales\EshopCommunity\Internal\Twig\Extensions\Filters\FormatDateExtension::formatDate
      */
     public function testFormDateUsingObject(): void
     {

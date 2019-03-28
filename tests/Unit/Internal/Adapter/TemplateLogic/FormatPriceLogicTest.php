@@ -11,6 +11,9 @@ use OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\FormatPriceLogic;
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\FormatPriceExtension;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class FormatPriceLogicTest
+ */
 class FormatPriceLogicTest extends TestCase
 {
 
@@ -19,6 +22,9 @@ class FormatPriceLogicTest extends TestCase
      */
     private $formatPriceLogic;
 
+    /**
+     * {@inheritDoc}
+     */
     protected function setUp(): void
     {
         $this->formatPriceLogic = new FormatPriceLogic();

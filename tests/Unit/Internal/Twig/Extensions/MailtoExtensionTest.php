@@ -1,11 +1,24 @@
 <?php
+/**
+ * Copyright © OXID eSales AG. All rights reserved.
+ * See LICENSE file for license details.
+ */
 
 namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions;
 
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\MailtoExtension;
 
+/**
+ * Class MailtoExtensionTest
+ */
 class MailtoExtensionTest extends AbstractExtensionTest
 {
+
+    /** @var MailtoExtension */
+    protected $extension;
+
+    protected $functions = ['mailto'];
+
     /**
      * {@inheritdoc}
      */
@@ -16,9 +29,9 @@ class MailtoExtensionTest extends AbstractExtensionTest
     }
 
     /**
-     * @param $template
-     * @param $expected
-     * @param array $variables
+     * @param string $template
+     * @param string $expected
+     * @param array  $variables
      *
      * @dataProvider getMailtoTests
      */
@@ -70,5 +83,16 @@ class MailtoExtensionTest extends AbstractExtensionTest
                 "</script>"
             ]
         ];
+    }
+
+    /**
+     * @expectedException Twig_Error_Runtime
+     * @expectedExceptionMessage mailto: 'encode' parameter must be none, javascript or hex
+     */
+    public function testMailtoWithInvalidEncodeParameter(): void
+    {
+        $template = "{{ mailto(\"me@example.com\", { encode: 'custom' }) }}";
+
+        $this->getTemplate($template)->render([]);
     }
 }

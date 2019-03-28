@@ -20,6 +20,9 @@ class IncludeDynamicLogicTest extends TestCase
     /** @var IncludeDynamicLogic */
     private $includeDynamicLogic;
 
+    /**
+     * {@inheritDoc}
+     */
     public function setUp(): void
     {
         $this->includeDynamicLogic = new IncludeDynamicLogic();
@@ -29,7 +32,7 @@ class IncludeDynamicLogicTest extends TestCase
      * @param array $parameters
      * @param array $expected
      *
-     * @covers       IncludeExtension::includeDynamicPrefix
+     * @covers       \OxidEsales\EshopCommunity\Internal\Twig\Extensions\IncludeExtension::includeDynamicPrefix
      * @dataProvider getIncludeDynamicPrefixTests
      */
     public function testIncludeDynamicPrefix(array $parameters, array $expected): void
@@ -41,7 +44,7 @@ class IncludeDynamicLogicTest extends TestCase
      * @param array  $parameters
      * @param string $expected
      *
-     * @covers       IncludeExtension::renderForCache
+     * @covers       \OxidEsales\EshopCommunity\Internal\Twig\Extensions\IncludeExtension::renderForCache
      * @dataProvider getRenderForCacheTests
      */
     public function testRenderForCache(array $parameters, string $expected): void

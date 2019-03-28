@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 class TwigEscaperPassTest extends TestCase
 {
 
-    public function testEscaperPass()
+    public function testEscaperPass(): void
     {
         $builder = new ContainerBuilder();
         $builder->register(TwigEngine::class);

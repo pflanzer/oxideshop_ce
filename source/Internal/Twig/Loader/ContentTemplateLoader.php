@@ -50,23 +50,17 @@ class ContentTemplateLoader implements LoaderInterface
      */
     public function getSourceContext($name): Source
     {
-        $key = $this->nameParser->getKey($name);
-        $value = $this->nameParser->getValue($name);
         $parameters = $this->nameParser->getParameters($name);
 
         $content = $this->getContent($name);
 
-        if ($content) {
-            $field = "oxcontent";
-            if (isset($parameters['field'])) {
-                $field = $parameters['field'];
-            }
-
-            $property = 'oxcontents__' . $field;
-            $code = $content->$property->value;
-        } else {
-            throw new LoaderError("Template with $key '$value' not found.");
+        $field = "oxcontent";
+        if (isset($parameters['field'])) {
+            $field = $parameters['field'];
         }
+
+        $property = 'oxcontents__' . $field;
+        $code = $content->$property->value;
 
         return new Source($code, $name);
     }
@@ -146,7 +140,7 @@ class ContentTemplateLoader implements LoaderInterface
         $content = $this->contentFactory->getContent($key, $value);
 
         if (!$content) {
-            throw new LoaderError("Cannot load template from database.");
+            throw new LoaderError("Template with $key '$value' not found.");
         }
 
         if (!$content->oxcontents__oxactive->value) {

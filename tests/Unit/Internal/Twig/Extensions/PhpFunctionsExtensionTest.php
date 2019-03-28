@@ -7,15 +7,22 @@
 namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions;
 
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\PhpFunctionsExtension;
-use PHPUnit\Framework\TestCase;
 
+/**
+ * Class PhpFunctionsExtensionTest
+ */
 class PhpFunctionsExtensionTest extends AbstractExtensionTest
 {
 
     /** @var PhpFunctionsExtension */
     protected $extension;
 
-    public function setUp()
+    protected $functions = ['count', 'empty', 'isset'];
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUp(): void
     {
         $this->extension = new PhpFunctionsExtension();
     }
@@ -40,7 +47,7 @@ class PhpFunctionsExtensionTest extends AbstractExtensionTest
      *
      * @dataProvider dummyTemplateProvider
      */
-    public function testIfPhpFunctionsAreCallable(string $template, string $expected)
+    public function testIfPhpFunctionsAreCallable(string $template, string $expected): void
     {
         $this->assertEquals($expected, $this->getTemplate($template)->render([]));
     }

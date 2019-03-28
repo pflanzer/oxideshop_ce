@@ -12,7 +12,7 @@ namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions\Filters;
 
 use OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\DateFormatHelper;
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\Filters\DateFormatExtension;
-use PHPUnit\Framework\TestCase;
+use OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions\AbstractExtensionTest;
 
 /**
  * Class DateFormatExtensionTest
@@ -21,25 +21,30 @@ use PHPUnit\Framework\TestCase;
  *
  * @package OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions\Filters
  */
-class DateFormatExtensionTest extends TestCase
+class DateFormatExtensionTest extends AbstractExtensionTest
 {
 
     /**
      * @var DateFormatExtension
      */
-    private $dateFormatExtension;
+    protected $extension;
 
-    protected function setUp()
+    protected $filters = ['date_format'];
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function setUp(): void
     {
         parent::setUp();
         $dateFormatHelper = new DateFormatHelper();
-        $this->dateFormatExtension = new DateFormatExtension($dateFormatHelper);
+        $this->extension = new DateFormatExtension($dateFormatHelper);
     }
 
     /**
      * @return array
      */
-    public function provider()
+    public function provider(): array
     {
         return [
 
@@ -67,14 +72,14 @@ class DateFormatExtensionTest extends TestCase
      * @param mixed  $string
      * @param string $format
      * @param string $default_date
-     * @param string $expectedDate
+     * @param mixed $expectedDate
      *
      * @dataProvider provider
      * @covers       \OxidEsales\EshopCommunity\Internal\Twig\Extensions\Filters\DateFormatExtension::dateFormat
      */
-    public function testDateFormat($string, $format, $default_date, $expectedDate)
+    public function testDateFormat(string $string, string $format, string $default_date, $expectedDate): void
     {
-        $actualDate = $this->dateFormatExtension->dateFormat($string, $format, $default_date);
+        $actualDate = $this->extension->dateFormat($string, $format, $default_date);
         $this->assertEquals($expectedDate, $actualDate);
     }
 }

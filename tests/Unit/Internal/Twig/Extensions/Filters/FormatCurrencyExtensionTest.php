@@ -21,12 +21,17 @@ class FormatCurrencyExtensionTest extends AbstractExtensionTest
     /** @var FormatCurrencyExtension */
     protected $extension;
 
-    public function setUp()
+    protected $filters = ['format_currency'];
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUp(): void
     {
         $this->extension = new FormatCurrencyExtension(new FormatCurrencyLogic());
     }
 
-    public function testNumberFormat()
+    public function testNumberFormat(): void
     {
         $template = "{{ 'EUR@ 1.00@ .@ ,@ EUR@ 2'|format_currency(25000000.5584) }}";
         $expected = '25,000,000.56';

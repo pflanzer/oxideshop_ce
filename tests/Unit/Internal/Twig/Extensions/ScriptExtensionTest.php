@@ -8,8 +8,6 @@ namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions;
 
 use OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\ScriptLogic;
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\ScriptExtension;
-use Twig\Environment;
-use Twig\Loader\ArrayLoader;
 
 /**
  * Class ScriptExtensionTest
@@ -18,6 +16,11 @@ use Twig\Loader\ArrayLoader;
  */
 class ScriptExtensionTest extends AbstractExtensionTest
 {
+
+    /** @var ScriptExtension */
+    protected $extension;
+
+    protected $functions = ['script'];
 
     /**
      * {@inheritdoc}
@@ -32,7 +35,7 @@ class ScriptExtensionTest extends AbstractExtensionTest
      * @param string $template
      * @param string $expected
      *
-     * @covers ScriptExtension::script
+     * @covers       \OxidEsales\EshopCommunity\Internal\Twig\Extensions\ScriptExtension::script
      * @dataProvider getScriptTests
      */
     public function testScript(string $template, string $expected): void
@@ -113,18 +116,24 @@ HTML
     }
 
     /**
-     * @param string $template
-     *
-     * @return \Twig_Template
+     * @expectedException Twig\Error\Error
+     * @expectedExceptionMessage {{ script }} parameter 'add' can not be empty!
      */
-    protected function getTemplate(string $template): \Twig_Template
+    public function testScriptWithEmptyAddParameter(): void
     {
-        $loader = new ArrayLoader(['index' => $template]);
+        $template = "{{ script({ add: '' }) }}";
 
-        $twig = new Environment($loader, ['debug' => true, 'cache' => false]);
-        $twig->addGlobal('__oxid_include_dynamic', true);
-        $twig->addExtension($this->extension);
+        $this->getTemplate($template)->render([]);
+    }
 
-        return $twig->loadTemplate('index');
+    /**
+     * @expectedException Twig\Error\Error
+     * @expectedExceptionMessage {{ script }} parameter 'include' can not be empty!
+     */
+    public function testScriptWithEmptyIncludeParameter(): void
+    {
+        $template = "{{ script({ include: '' }) }}";
+
+        $this->getTemplate($template)->render([]);
     }
 }

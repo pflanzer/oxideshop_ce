@@ -1,37 +1,60 @@
 <?php
+/**
+ * Copyright © OXID eSales AG. All rights reserved.
+ * See LICENSE file for license details.
+ */
 
-namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extension;
+namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extensions;
 
+use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\Eshop\Core\WidgetControl;
 use OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\IncludeWidgetLogic;
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\IncludeWidgetExtension;
-use PHPUnit\Framework\TestCase;
 
-class IncludeWidgetExtensionTest extends TestCase
+/**
+ * Class IncludeWidgetExtensionTest
+ */
+class IncludeWidgetExtensionTest extends AbstractExtensionTest
 {
 
-    /**
-     * @var IncludeWidgetExtension
-     */
-    protected $includeWidgetExtension;
+    /** @var IncludeWidgetExtension */
+    protected $extension;
 
-    protected function setUp()
+    protected $functions = ['include_widget'];
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function setUp(): void
     {
         parent::setUp();
         $includeWidgetLogic = new IncludeWidgetLogic();
-        $this->includeWidgetExtension = new IncludeWidgetExtension($includeWidgetLogic);
+        $this->extension = new IncludeWidgetExtension($includeWidgetLogic);
     }
 
     /**
      * @covers       \OxidEsales\EshopCommunity\Internal\Twig\Extensions\IncludeWidgetExtension::includeWidget
      */
-    public function testIncludeWidget()
+    public function testIncludeWidget(): void
     {
-        $widgetControl = $this->createMock(\OxidEsales\Eshop\Core\WidgetControl::class);
+        $widgetControl = $this->createMock(WidgetControl::class);
         $widgetControl->expects($this->any())->method("start")->will($this->returnValue('html'));
-        \OxidEsales\Eshop\Core\Registry::set(\OxidEsales\Eshop\Core\WidgetControl::class, $widgetControl);
+        Registry::set(WidgetControl::class, $widgetControl);
 
-        $actual = $this->includeWidgetExtension->includeWidget(['cl' => 'oxwTagCloud', 'blShowTags' => 1]);
+        $actual = $this->extension->includeWidget(['cl' => 'oxwTagCloud', 'blShowTags' => 1]);
         $this->assertEquals('html', $actual);
     }
 
+    /**
+     * @covers       \OxidEsales\EshopCommunity\Internal\Twig\Extensions\IncludeWidgetExtension::includeWidget
+     */
+    public function testIncludeWidgetWithParentViews(): void
+    {
+        $widgetControl = $this->createMock(WidgetControl::class);
+        $widgetControl->method("start")->will($this->returnArgument(3));
+        Registry::set(WidgetControl::class, $widgetControl);
+
+        $actual = $this->extension->includeWidget(['cl' => 'oxwTagCloud', 'blShowTags' => 1, '_parent' => 'parent|views']);
+        $this->assertEquals(['parent', 'views'], $actual);
+    }
 }

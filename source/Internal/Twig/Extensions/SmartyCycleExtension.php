@@ -27,12 +27,12 @@ class SmartyCycleExtension extends AbstractExtension
     }
 
     /**
-     * @param array $values
+     * @param array|string $values
      * @param array $parameters
      *
      * @return mixed|null
      */
-    public function smartyCycle(array $values = [], array $parameters = [])
+    public function smartyCycle($values = [], array $parameters = [])
     {
         $name = (empty($parameters['name'])) ? 'default' : $parameters['name'];
         $advance = (isset($parameters['advance'])) ? (bool) $parameters['advance'] : true;
