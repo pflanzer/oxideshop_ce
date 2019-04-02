@@ -716,7 +716,6 @@ class PaginationSeoTest extends \OxidEsales\TestingLibrary\UnitTestCase
         $curl = oxNew(\OxidEsales\Eshop\Core\Curl::class);
         $curl->setOption('CURLOPT_HEADER', true);
         $curl->setOption( 'CURLOPT_RETURNTRANSFER', true);
-       # $curl->setOption('CURLOPT_HTTPGET', true);
         $curl->setUrl($url);
         $return = $curl->execute();
 
