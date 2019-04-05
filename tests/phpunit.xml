@@ -32,6 +32,7 @@
             <file>../source/Setup/Session.php</file>
             <file>../source/Setup/Setup.php</file>
             <file>../source/Setup/Utilities.php</file>
+            <file>../source/Setup/View.php</file>
             <exclude>
                 <directory suffix=".php">../source/Application/views</directory>
                 <directory suffix=".php">../source/Application/translations</directory>
