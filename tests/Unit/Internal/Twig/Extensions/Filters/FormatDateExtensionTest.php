@@ -38,7 +38,7 @@ class FormatDateExtensionTest extends AbstractExtensionTest
      */
     public function testFormDateWithDatetime(): void
     {
-        $template = "{{ '01.08.2007 11.56.25'|format_date('datetime', true) }}";
+        $template = "{{ '01.08.2007 11.56.25'|date_format('datetime', true) }}";
         $expected = "2007-08-01 11:56:25";
 
         $this->assertEquals($expected, $this->getTemplate($template)->render([]));
@@ -49,7 +49,7 @@ class FormatDateExtensionTest extends AbstractExtensionTest
      */
     public function testFormDateWithTimestamp(): void
     {
-        $template = "{{ '20070801115625'|format_date('timestamp', true) }}";
+        $template = "{{ '20070801115625'|date_format('timestamp', true) }}";
         $expected = "2007-08-01 11:56:25";
 
         $this->assertEquals($expected, $this->getTemplate($template)->render([]));
@@ -60,7 +60,7 @@ class FormatDateExtensionTest extends AbstractExtensionTest
      */
     public function testFormDateWithDate(): void
     {
-        $template = "{{ '2007-08-01 11:56:25'|format_date('date', true) }}";
+        $template = "{{ '2007-08-01 11:56:25'|date_format('date', true) }}";
         $expected = "2007-08-01";
 
         $this->assertEquals($expected, $this->getTemplate($template)->render([]));
@@ -71,7 +71,7 @@ class FormatDateExtensionTest extends AbstractExtensionTest
      */
     public function testFormDateUsingObject(): void
     {
-        $template = "{{ field|format_date('datetime') }}";
+        $template = "{{ field|date_format('datetime') }}";
         $expected = "2007-08-01 11:56:25";
 
         $field = new Field();
