@@ -21,6 +21,7 @@
             <directory suffix=".php">../source/Application</directory>
             <directory suffix=".php">../source/Core</directory>
             <directory suffix=".php">../source/Internal</directory>
+            <directory suffix=".php">../source/Setup</directory>
             <directory suffix=".php">../source/bin</directory>
             <directory suffix=".php">../source/migration</directory>
             <directory suffix=".php">../source/modules</directory>
