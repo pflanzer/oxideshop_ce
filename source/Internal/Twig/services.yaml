@@ -27,10 +27,9 @@ services:
       - "@=service('OxidEsales\\\\EshopCommunity\\\\Internal\\\\Twig\\\\TemplateEngineConfigurationInterface').getParameters()"
     public: false
     calls:
-      - method: addGlobal
-        arguments:
-          - 'twig'
-          - capture: []
+      - [addGlobal, ['twig', {capture: {}}]]
+      - [addGlobal, ['oView', {}]]
+
 
   OxidEsales\EshopCommunity\Internal\Twig\TwigEngine:
     class: OxidEsales\EshopCommunity\Internal\Twig\TwigEngine
