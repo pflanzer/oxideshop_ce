@@ -21,10 +21,17 @@
             <directory suffix=".php">../source/Application</directory>
             <directory suffix=".php">../source/Core</directory>
             <directory suffix=".php">../source/Internal</directory>
-            <directory suffix=".php">../source/Setup</directory>
             <directory suffix=".php">../source/bin</directory>
             <directory suffix=".php">../source/migration</directory>
             <directory suffix=".php">../source/modules</directory>
+            <directory suffix=".php">../source/Setup/Controller</directory>
+            <directory suffix=".php">../source/Setup/Exception</directory>
+            <file>../source/Setup/Core.php</file>
+            <file>../source/Setup/Database.php</file>
+            <file>../source/Setup/Language.php</file>
+            <file>../source/Setup/Session.php</file>
+            <file>../source/Setup/Setup.php</file>
+            <file>../source/Setup/Utilities.php</file>
             <exclude>
                 <directory suffix=".php">../source/Application/views</directory>
                 <directory suffix=".php">../source/Application/translations</directory>
