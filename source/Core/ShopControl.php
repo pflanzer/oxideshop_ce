@@ -454,8 +454,7 @@ class ShopControl extends \OxidEsales\Eshop\Core\Base
         $templateName = $view->render();
 
         // check if template dir exists
-        $templateFile = \OxidEsales\Eshop\Core\Registry::getConfig()->getTemplatePath($templateName, $this->isAdmin());
-        if (!file_exists($templateFile)) {
+        if (!$templating->exists($templateName)) {
             $ex = oxNew(\OxidEsales\Eshop\Core\Exception\SystemComponentException::class);
             $ex->setMessage('EXCEPTION_SYSTEMCOMPONENT_TEMPLATENOTFOUND' . ' ' . $templateName);
             $ex->setComponent($templateName);
