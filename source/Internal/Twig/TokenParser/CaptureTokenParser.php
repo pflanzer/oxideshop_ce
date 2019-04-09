@@ -8,8 +8,8 @@ namespace OxidEsales\EshopCommunity\Internal\Twig\TokenParser;
 
 use OxidEsales\EshopCommunity\Internal\Twig\Node\CaptureNode;
 use Twig\Error\SyntaxError;
+use Twig\Token;
 use Twig\TokenParser\AbstractTokenParser;
-use Twig_Token as Token;
 
 /**
  * Class CaptureTokenParser
