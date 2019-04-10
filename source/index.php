@@ -11,5 +11,8 @@ require_once dirname(__FILE__) . "/bootstrap.php";
  */
 redirectIfShopNotConfigured();
 
+$themeSwitcher = new \OxidEsales\TestingLibrary\Services\ThemeSwitcher\ThemeSwitcher([]);
+$themeSwitcher->activateTwigTheme();
+
 //Starts the shop
 OxidEsales\EshopCommunity\Core\Oxid::run();

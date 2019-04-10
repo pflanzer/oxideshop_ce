@@ -16,7 +16,7 @@ class CookieNote extends \OxidEsales\Eshop\Application\Component\Widget\WidgetCo
      *
      * @var string
      */
-    protected $_sThisTemplate = 'widget/header/cookienote_bak.tpl';
+    protected $_sThisTemplate = 'widget/header/cookienote.tpl';
 
     /**
      * Executes parent::render(). Check if need to hide cookie note.

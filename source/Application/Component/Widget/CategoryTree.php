@@ -8,6 +8,7 @@ namespace  OxidEsales\EshopCommunity\Application\Component\Widget;
 
 use OxidEsales\Eshop\Core\Request;
 use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\EshopCommunity\Internal\Templating\TraditionalEngineInterface;
 
 /**
  * Category tree widget.
@@ -40,14 +41,26 @@ class CategoryTree extends \OxidEsales\Eshop\Application\Component\Widget\Widget
     {
         parent::render();
 
+        $templating = $this->getTemplating();
+
         if ($sTpl = $this->getViewParameter("sWidgetType")) {
             $sTemplateName = 'widget/' . basename($sTpl) . '/categorylist.tpl';
-            if (\OxidEsales\Eshop\Core\Registry::getConfig()->getTemplatePath($sTemplateName, $this->isAdmin())) {
+            if ($templating->exists($sTemplateName)) {
                 $this->_sThisTemplate = $sTemplateName;
             }
         }
 
         return $this->_sThisTemplate;
+    }
+
+    /**
+     * @internal
+     *
+     * @return TraditionalEngineInterface
+     */
+    protected function getTemplating()
+    {
+        return $this->getContainer()->get(TraditionalEngineInterface::class);
     }
 
     /**

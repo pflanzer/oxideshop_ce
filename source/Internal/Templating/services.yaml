@@ -3,6 +3,7 @@ services:
     class: OxidEsales\EshopCommunity\Internal\Templating\TraditionalEngine
     arguments:
       - '@OxidEsales\EshopCommunity\Internal\Twig\TwigEngine'
+#      - '@OxidEsales\EshopCommunity\Internal\Smarty\SmartyEngine'
       - '@OxidEsales\EshopCommunity\Internal\Templating\TemplateNameResolverInterface'
     public: true
     tags: ['templating']
