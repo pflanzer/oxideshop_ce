@@ -111,6 +111,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `\OxidEsales\EshopCommunity\Core\PasswordHasher` will no longer be needed and removed completely. Use `PasswordServiceBridgeInterface` instead
 - `\OxidEsales\EshopCommunity\Core\PasswordSaltGenerator` will no longer be needed and removed completely
 - `\OxidEsales\EshopCommunity\Core\Sha512Hasher` will no longer be needed and removed completely
+- `\OxidEsales\EshopCommunity\Application\Controller\Admin\ModuleConfiguration::_getModuleForConfigVars`  
+- `\OxidEsales\EshopCommunity\Application\Controller\Admin\ModuleConfiguration::__loadMetadataConfVars` 
 
 - Classes:
     - `OxidEsales\EshopCommunity\Core\Module\ModuleInstaller` 
