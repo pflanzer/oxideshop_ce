@@ -12,7 +12,7 @@
     {% endif %}
     {% set aVariantSelections = product.getVariantSelections("null", "null", 1) %}
     {% set blShowToBasket = true %} {# tobasket or more info ? #}
-    {% if blDisableToCart or product.isNotBuyable()||(aVariantSelections&&$aVariantSelections.selections)||$product.getVariants()||(oViewConf.showSelectListsInList() and product.getSelections(1)) %}
+    {% if blDisableToCart or product.isNotBuyable() or (aVariantSelections and aVariantSelections.selections) or product.getVariants() or (oViewConf.showSelectListsInList() and product.getSelections(1)) %}
         {% set blShowToBasket = false %}
     {% endif %}
 

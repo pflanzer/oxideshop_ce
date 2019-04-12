@@ -17,7 +17,7 @@ abstract class FlowThemeTestCase extends AcceptanceTestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->activateTheme('flow');
+        $this->activateTheme('twig');
     }
 
     /**
