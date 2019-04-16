@@ -45,8 +45,8 @@
                                         {% if oView.canRate() %}
                                             <ul id="reviewRating" class="rating list-inline">
                                                 {% for star in 1..6 %}
-                                                    <li class="s{{ smarty.section.star.index }}" data-rate-value="{{ smarty.section.star.index }}">
-                                                        <a class="ox-write-review ox-rateindex-{{ smarty.section.star.index }} text-warning" title="{{ smarty.section.star.index }} {% if smarty.section.star.index==1 %}{{ translate({ ident: "STAR" }) }}{% else %}{{ translate({ ident: "STARS" }) }}{% endif %}">
+                                                    <li class="s{{ loop.index0 }}" data-rate-value="{{ loop.index0 }}">
+                                                        <a class="ox-write-review ox-rateindex-{{ loop.index0 }} text-warning" title="{{ loop.index0 }} {% if loop.index0==1 %}{{ translate({ ident: "STAR" }) }}{% else %}{{ translate({ ident: "STARS" }) }}{% endif %}">
                                                             <i class="fa fa-star-o"></i>
                                                         </a>
                                                     </li>
@@ -102,7 +102,7 @@
                                     {% if review.oxreviews__oxrating.value %}
                                         <div class="pull-right text-warning" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
                                             {% for starRatings in 0..5 %}
-                                                {% if review.oxreviews__oxrating.value >= smarty.section.starRatings.iteration %}
+                                                {% if review.oxreviews__oxrating.value >= loop.index %}
                                                     <i class="fa fa-star"></i>
                                                 {% else %}
                                                     <i class="fa fa-star-o"></i>

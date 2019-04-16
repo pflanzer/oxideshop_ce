@@ -27,7 +27,7 @@
                 <div property="gr:condition" content="{{ oView.getRDFaGenericCondition() }}" xml:lang="en"></div>
             {% endif %}
             {% for oCatPath in oView.getCatTreePath() %}
-                {% if smarty.foreach.detailslocation.last %}
+                {% if loop.last %}
                     <div property="gr:category" content="{{ oCatPath.oxcategories__oxtitle.value|striptags }}" {% if oView.getActiveLangAbbr() %} xml:lang="{{ oView.getActiveLangAbbr() }}"{% endif %}></div>
                 {% endif %}
             {% endfor %}

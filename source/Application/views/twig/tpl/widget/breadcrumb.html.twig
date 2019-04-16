@@ -8,7 +8,7 @@
                             <li class="text-muted">{{ translate({ ident: "YOU_ARE_HERE" }) }}:</li>
                             
                             {% for sCrum in oView.getBreadCrumb() %}
-                                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"{% if smarty.foreach.breadcrumb.last %} class="active"{% endif %}>
+                                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"{% if loop.last %} class="active"{% endif %}>
                                     <a href="{% if sCrum.link %}{{ sCrum.link }}{% else %}#{% endif %}" title="{{ sCrum.title|escape('html') }}" itemprop="url">
                                         <span itemprop="title">{{ sCrum.title }}</span>
                                     </a>

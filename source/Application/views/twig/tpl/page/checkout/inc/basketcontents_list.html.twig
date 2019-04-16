@@ -71,8 +71,8 @@
                                     <p class="persparamBox">
                                         <small>
                                             {% for sVar, aParam in basketitem.getPersParams() %}
-                                                {% if not smarty.foreach.persparams.first %}<br />{% endif %}
-                                                {% if smarty.foreach.persparams.first and smarty.foreach.persparams.last %}
+                                                {% if not loop.first %}<br />{% endif %}
+                                                {% if loop.first and loop.last %}
                                                     {{ translate({ ident: "LABEL" }) }}
                                                 {% else %}
                                                     {{ sVar }} :
@@ -87,7 +87,7 @@
                                             <br />
                                             {% for sVar, aParam in basketitem.getPersParams() %}
                                                 <p>
-                                                    <input class="textbox persParam form-control" type="text" name="aproducts[{{ basketindex }}][persparam][{{ sVar }}]" value="{{ aParam }}" placeholder="{% if smarty.foreach.persparams.first and smarty.foreach.persparams.last %}{{ translate({ ident: "LABEL" }) }}{% else %}{{ sVar }}{% endif %}">
+                                                    <input class="textbox persParam form-control" type="text" name="aproducts[{{ basketindex }}][persparam][{{ sVar }}]" value="{{ aParam }}" placeholder="{% if loop.first and loop.last %}{{ translate({ ident: "LABEL" }) }}{% else %}{{ sVar }}{% endif %}">
                                                 </p>
                                             {% endfor %}
                                         {% else %}

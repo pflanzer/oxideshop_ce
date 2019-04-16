@@ -16,7 +16,7 @@
                     <tbody>
                         <tr class="products">
                             {% for iProdNr, product in articleList %}
-                                {% if smarty.foreach.compareArticles.first %}
+                                {% if loop.first %}
                                     <th class="attrib-title no-border" scope="row">&nbsp;</th>
                                 {% endif %}
 

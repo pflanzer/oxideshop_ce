@@ -34,7 +34,7 @@
                 {% set detailsLocation = oView.getSearchTitle() %}
             {% else %}
                 {% for oCatPath in oView.getCatTreePath() %}
-                    {% if smarty.foreach.detailslocation.last %}
+                    {% if loop.last %}
                         {% set detailsLocation = oCatPath.oxcategories__oxtitle.value %}
                     {% endif %}
                 {% endfor %}

@@ -68,7 +68,7 @@
         <div class="tabbedWidgetBox clear">
             <ul id="itemTabs" class="nav nav-tabs">
                 {% for tab in tabs %}
-                    <li{% if smarty.foreach.tabs.first %} class="active"{% endif %}>{{ tab }}</li>
+                    <li{% if loop.first %} class="active"{% endif %}>{{ tab }}</li>
                 {% endfor %}
                 {% block details_tabs_social_navigation %}{% endblock %}
             </ul>

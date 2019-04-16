@@ -11,7 +11,7 @@
             {% set blIsYouTubeMedia = true %}
         {% endif %}
 
-        {% if not smarty.foreach.mediaURLs.first %}
+        {% if not loop.first %}
             <hr/>
         {% endif %}
         <div class="{% if blIsYouTubeMedia %}embed-responsive embed-responsive-4by3{% endif %}">
