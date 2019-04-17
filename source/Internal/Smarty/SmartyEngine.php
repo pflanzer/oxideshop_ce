@@ -49,42 +49,6 @@ class SmartyEngine implements TemplateEngineInterface
      */
     public function render($name, array $parameters = [])
     {
-        if ($this->exists($name) === false && isset($this->cacheId)) {
-            $content = $this->renderString($name, $this->cacheId, $parameters);
-        } else {
-            $content = $this->renderTemplate($name, $parameters);
-        }
-        return $content;
-    }
-
-    /**
-     * Renders a string.
-     *
-     * @param string $name       A template name
-     * @param array  $parameters An array of parameters to pass to the template
-     *
-     * @return string The evaluated template as a string
-     */
-    private function renderString($name, $cacheId, array $parameters = [])
-    {
-        $this->engine->force_compile = true;
-        foreach ($parameters as $key => $value) {
-            $this->engine->assign($key, $value);
-        }
-        $this->engine->oxidcache = new \OxidEsales\Eshop\Core\Field($name, \OxidEsales\Eshop\Core\Field::T_RAW);
-        return $this->engine->fetch($cacheId);
-    }
-
-    /**
-     * Renders a template.
-     *
-     * @param string $name       A template name
-     * @param array  $parameters An array of parameters to pass to the template
-     *
-     * @return string The evaluated template as a string
-     */
-    private function renderTemplate($name, array $parameters = [])
-    {
         foreach ($parameters as $key => $value) {
             $this->engine->assign($key, $value);
         }
@@ -92,6 +56,24 @@ class SmartyEngine implements TemplateEngineInterface
             return $this->engine->fetch($name, $this->cacheId);
         }
         return $this->engine->fetch($name);
+    }
+
+    /**
+     * Renders a fragment of the template.
+     *
+     * @param string $fragment   The template fragment to render
+     * @param array  $parameters An array of parameters to pass to the template
+     *
+     * @return string The evaluated template as a string
+     */
+    public function renderFragment(string $fragment, array $parameters = [])
+    {
+        $this->engine->force_compile = true;
+        foreach ($parameters as $key => $value) {
+            $this->engine->assign($key, $value);
+        }
+        $this->engine->oxidcache = new \OxidEsales\Eshop\Core\Field($fragment, \OxidEsales\Eshop\Core\Field::T_RAW);
+        return $this->engine->fetch($this->cacheId);
     }
 
     /**

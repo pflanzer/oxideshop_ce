@@ -18,7 +18,18 @@ interface TemplateRendererInterface
      *
      * @return string
      */
-    public function renderTemplate(string $template, array $viewData = [], $cacheId = null);
+    public function renderTemplate(string $template, array $viewData = [], $cacheId = null): string;
+
+    /**
+     * Renders a fragment of the template.
+     *
+     * @param string $fragment The template fragment to render
+     * @param array  $viewData An array of parameters to pass to the template
+     * @param string $cacheId  The id for template caching
+     *
+     * @return string
+     */
+    public function renderFragment(string $template, array $viewData = [], $cacheId = null) : string;
 
     /**
      * @return TemplateEngineInterface

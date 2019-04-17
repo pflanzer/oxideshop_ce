@@ -44,7 +44,17 @@ interface TemplateEngineInterface
      *
      * @return string The evaluated template as a string
      */
-    public function render($name, array $parameters = []);
+    public function render(string $name, array $parameters = []);
+
+    /**
+     * Renders a fragment of the template.
+     *
+     * @param string $fragment   The template fragment to render
+     * @param array  $parameters An array of parameters to pass to the template
+     *
+     * @return string The evaluated template as a string
+     */
+    public function renderFragment(string $fragment, array $parameters = []);
 
     /**
      * Returns true if the template exists.

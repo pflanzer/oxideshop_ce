@@ -52,7 +52,7 @@ class RssTest extends \OxidTestCase
     public function testRender()
     {
         $renderer = $this->getMockBuilder(TemplateRendererInterface::class)
-            ->setMethods(['renderTemplate', 'exists', 'getEngine'])
+            ->setMethods(['renderTemplate', 'renderFragment', 'exists', 'getEngine'])
             ->disableOriginalConstructor()
             ->getMock();
         $renderer->expects($this->any())->method('renderTemplate')->with($this->equalTo("widget/rss.tpl"))->will($this->returnValue('smarty processed xml'));
@@ -402,7 +402,7 @@ class RssTest extends \OxidTestCase
     private function getTemplateRendererMock($expectedTemplate)
     {
         $renderer = $this->getMockBuilder(TemplateRendererInterface::class)
-            ->setMethods(['renderTemplate', 'exists', 'getEngine'])
+            ->setMethods(['renderTemplate', 'renderFragment', 'exists', 'getEngine'])
             ->disableOriginalConstructor()
             ->getMock();
         $renderer->expects($this->any())->method('renderTemplate')->with($this->equalTo($expectedTemplate));

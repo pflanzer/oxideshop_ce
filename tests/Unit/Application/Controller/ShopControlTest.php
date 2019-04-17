@@ -683,7 +683,7 @@ class ShopControlTest extends \OxidTestCase
     private function getTemplateRendererMock($expectedTemplate)
     {
         $renderer = $this->getMockBuilder(TemplateRendererInterface::class)
-            ->setMethods(['renderTemplate', 'exists', 'getEngine'])
+            ->setMethods(['renderTemplate', 'renderFragment', 'exists', 'getEngine'])
             ->disableOriginalConstructor()
             ->getMock();
         $renderer->expects($this->any())->method('renderTemplate')->with($this->equalTo($expectedTemplate));

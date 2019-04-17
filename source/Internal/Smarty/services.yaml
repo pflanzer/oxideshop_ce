@@ -18,6 +18,7 @@ services:
     class: OxidEsales\EshopCommunity\Internal\Smarty\SmartyEngineConfiguration
     arguments:
       - '@OxidEsales\EshopCommunity\Internal\Smarty\SmartyContextInterface'
+      - '@OxidEsales\EshopCommunity\Internal\Smarty\Bridge\ModuleSmartyPluginBridgeInterface'
     public: false
 
   OxidEsales\EshopCommunity\Internal\Smarty\SmartyFactoryInterface:
@@ -33,3 +34,13 @@ services:
   OxidEsales\EshopCommunity\Internal\Smarty\Bridge\ModuleSmartyPluginBridgeInterface:
     class: OxidEsales\EshopCommunity\Internal\Smarty\Bridge\ModuleSmartyPluginBridge
     public: true
+
+  OxidEsales\EshopCommunity\Internal\Smarty\SmartyTemplateRendererBridge:
+    class: OxidEsales\EshopCommunity\Internal\Smarty\SmartyTemplateRendererBridge
+    autowire: true
+    public: true
+
+  OxidEsales\EshopCommunity\Internal\Smarty\SmartyEngine:
+    class: OxidEsales\EshopCommunity\Internal\Smarty\SmartyEngine
+    autowire: true
+    public: false

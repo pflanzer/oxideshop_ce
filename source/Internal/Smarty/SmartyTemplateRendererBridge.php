@@ -13,6 +13,16 @@ class SmartyTemplateRendererBridge
 {
     private $engine;
 
+    /**
+     * @var SmartyFactoryInterface
+     */
+    private $factory;
+
+    public function __construct(SmartyFactoryInterface $engineFactory)
+    {
+        $this->factory = $engineFactory;
+    }
+
     public function getTemplateRenderer()
     {
         return new TemplateRenderer($this->getTemplateEngine());
@@ -20,16 +30,12 @@ class SmartyTemplateRendererBridge
 
     public function setEngine($engine)
     {
-        $this->engine = $engine;
+        $this->factory->setSmarty($engine);
     }
 
     public function getTemplateEngine()
     {
-        if ($this->engine) {
-            return new SmartyEngine($this->engine);
-        } else {
-            return new SmartyFactory();
-        }
+        return new SmartyEngine($this->factory->getSmarty());
     }
 
     public function getEngine()

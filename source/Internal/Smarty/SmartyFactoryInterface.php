@@ -15,4 +15,10 @@ interface SmartyFactoryInterface
      * @return \Smarty
      */
     public function getSmarty();
+
+    /**
+     * @param \Smarty $smarty
+     */
+    public function setSmarty(\Smarty $smarty);
+
 }

@@ -28,7 +28,6 @@ class SmartyFactory implements SmartyFactoryInterface
      */
     public function __construct(SmartyEngineConfigurationInterface $configuration)
     {
-        $this->smarty = new \Smarty();
         $this->configuration = $configuration;
     }
 
@@ -37,13 +36,32 @@ class SmartyFactory implements SmartyFactoryInterface
      */
     public function getSmarty() : \Smarty
     {
+        if (!isset($this->smarty)) {
+            $this->buildSmarty();
+        }
+
+        return $this->smarty;
+    }
+
+    /**
+     * @param \Smarty $smarty
+     */
+    public function setSmarty(\Smarty $smarty)
+    {
+        $this->smarty = $smarty;
+    }
+
+    /**
+     * Create new smarty instance and configure it
+     */
+    private function buildSmarty()
+    {
+        $this->smarty = new \Smarty();
         $this->setSettings();
         $this->setSecuritySettings();
         $this->registerPlugins();
         $this->registerPrefilters();
         $this->registerResources();
-
-        return $this->smarty;
     }
 
     /**
