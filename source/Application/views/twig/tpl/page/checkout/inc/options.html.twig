@@ -60,7 +60,7 @@
 							<div class="panel-body">
 								{% block checkout_options_reg_text %}
 									{% ifcontent ident "oxregistrationdescription" set oCont %}
-										{{ oCont.oxcontents__oxcontent.value }}
+										{{ oCont.oxcontents__oxcontent.value|raw }}
 									{% endifcontent %}
 								{% endblock %}
 							</div>

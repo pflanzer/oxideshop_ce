@@ -31,7 +31,7 @@
                                 {% for catkey, ocat in oxcmp_categories %}
                                     {% if ocat.getIsVisible() %}
                                         {% for oTopCont in ocat.getContentCats() %}
-                                            <li{% if oContent.oxcontents__oxloadid.value == oTopCont.oxcontents__oxloadid.value %} class="active"{% endif %}>
+                                            <li{% if oContent.oxcontents__oxloadid.value is same as(oTopCont.oxcontents__oxloadid.value) %} class="active"{% endif %}>
                                                 <a href="{{ oTopCont.getLink() }}">{{ oTopCont.oxcontents__oxtitle.value }}</a>
                                             </li>
                                         {% endfor %}

@@ -4,7 +4,7 @@
         <h1 id="accountMain" class="page-header">{{ translate({ ident: "MY_ACCOUNT" }) }}
             "{{ oxcmp_user.oxuser__oxusername.value }}"</h1>
 
-        {% if oView.getAccountDeletionStatus() == false %}
+        {% if oView.getAccountDeletionStatus() is same as(false) %}
             {% set statusMessage = "DD_DELETE_MY_ACCOUNT_ERROR"|translate %}
             {% include "message/error.html.twig" with {statusMessage: statusMessage} %}
         {% endif %}
