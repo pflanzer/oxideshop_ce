@@ -191,62 +191,62 @@
 
 <!DOCTYPE html>
 <html lang="{{ oView.getActiveLangAbbr() }}" {% block head_html_namespace %}{% endblock %}>
-    <head>
-        {% for _block in oxidBlock_pageHead %}
+<head>
+    {% for _block in oxidBlock_pageHead %}
+        {{ include(template_from_string(_block)) }}
+    {% endfor %}
+    {{ style() }}
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="cl-{{ oView.getClassName() }}{% if get_GET('plain') == '1' %} popup{% endif %}{% if blIsCheckout %} is-checkout{% endif %}{% if oxcmp_user and oxcmp_user.oxuser__oxpassword.value %} is-logged-in{% endif %}"{% if sStyle %} style="{{ sStyle }}"{% endif %}>
+
+{# Theme SVG icons block #}
+{% block theme_svg_icons %}{% endblock %}
+
+<div class="{% if blFullwidth %}fullwidth-container{% else %}container{% endif %}">
+    <div class="main-row">
+        {% for _block in oxidBlock_pageBody %}
             {{ include(template_from_string(_block)) }}
         {% endfor %}
-        {{ style() }}
+    </div>
+</div>
 
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-    </head>
-    <body class="cl-{{ oView.getClassName() }}{% if get_php_get('plain') == '1' %} popup{% endif %}{% if blIsCheckout %} is-checkout{% endif %}{% if oxcmp_user and oxcmp_user.oxuser__oxpassword.value %} is-logged-in{% endif %}"{% if sStyle %} style="{{ sStyle }}"{% endif %}>
+{% for _block in oxidBlock_pagePopup %}
+    {{ include(template_from_string(_block)) }}
+{% endfor %}
 
-    {# Theme SVG icons block #}
-    {% block theme_svg_icons %}{% endblock %}
+{% if oViewConf.getTopActiveClassName() == 'details' and oView.showZoomPics() %}
+    {% include "page/details/inc/photoswipe.html.twig" %}
+{% endif %}
 
-    <div class="{% if blFullwidth %}fullwidth-container{% else %}container{% endif %}">
-            <div class="main-row">
-                {% for _block in oxidBlock_pageBody %}
-                    {{ include(template_from_string(_block)) }}
-                {% endfor %}
-            </div>
-        </div>
+{% block base_js %}
+    {% include "i18n/js_vars.html.twig" %}
 
-        {% for _block in oxidBlock_pagePopup %}
-            {{ include(template_from_string(_block)) }}
-        {% endfor %}
+    {{ script({ include: "js/libs/jquery.min.js", priority: 1, dynamic: __oxid_include_dynamic }) }}
+    {{ script({ include: "js/libs/jquery-ui.min.js", priority: 1, dynamic: __oxid_include_dynamic }) }}
+    {{ script({ include: "js/scripts.min.js", priority: 1, dynamic: __oxid_include_dynamic }) }}
+{% endblock %}
 
-        {% if oViewConf.getTopActiveClassName() == 'details' and oView.showZoomPics() %}
-            {% include "page/details/inc/photoswipe.html.twig" %}
-        {% endif %}
+{% if oViewConf.isTplBlocksDebugMode() %}
+    {{ script({ include: "js/widgets/oxblockdebug.min.js", dynamic: __oxid_include_dynamic }) }}
+    {{ script({ add: "$( 'body' ).oxBlockDebug();", dynamic: __oxid_include_dynamic }) }}
+{% endif %}
 
-        {% block base_js %}
-            {% include "i18n/js_vars.html.twig" %}
+<!--[if gte IE 9]><style type="text/css">.gradient {filter:none;}</style><![endif]-->
+{{ script({ dynamic: __oxid_include_dynamic }) }}
 
-            {{ script({ include: "js/libs/jquery.min.js", priority: 1, dynamic: __oxid_include_dynamic }) }}
-            {{ script({ include: "js/libs/jquery-ui.min.js", priority: 1, dynamic: __oxid_include_dynamic }) }}
-            {{ script({ include: "js/scripts.min.js", priority: 1, dynamic: __oxid_include_dynamic }) }}
-        {% endblock %}
+{% if not oView.isDemoShop() %}
+    {% include_dynamic "widget/dynscript.html.twig" %}
+{% endif %}
 
-        {% if oViewConf.isTplBlocksDebugMode() %}
-            {{ script({ include: "js/widgets/oxblockdebug.min.js", dynamic: __oxid_include_dynamic }) }}
-            {{ script({ add: "$( 'body' ).oxBlockDebug();", dynamic: __oxid_include_dynamic }) }}
-        {% endif %}
+{% for _block in oxidBlock_pageScript %}
+    {{ include(template_from_string(_block)) }}
+{% endfor %}
 
-        <!--[if gte IE 9]><style type="text/css">.gradient {filter:none;}</style><![endif]-->
-        {{ script({ dynamic: __oxid_include_dynamic }) }}
-
-        {% if not oView.isDemoShop() %}
-            {% include_dynamic "widget/dynscript.html.twig" %}
-        {% endif %}
-
-        {% for _block in oxidBlock_pageScript %}
-            {{ include(template_from_string(_block)) }}
-        {% endfor %}
-
-    </body>
+</body>
 </html>

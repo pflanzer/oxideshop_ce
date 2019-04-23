@@ -73,17 +73,17 @@ Installation on ubuntu system:
 	sudo apt-get install -y nodejs
 	```
 
-2. Install ``grunt`` globally. Example:
+2. Install ``grunt`` globally and update npm. Example:
 
 	```
-    sudo npm install -g grunt-cli
+    sudo npm install -g npm grunt-cli 
     ```
 
 3. Go to "flow" theme's directory and install all related ``grunt`` plugins:
 
 	```
     cd DOCUMENT_ROOT/Application/views/flow/
-    sudo npm install
+    npm install
     ```
 
 4. Now its possible to regenerate "flow" theme assets by running ``grunt`` default
@@ -100,7 +100,3 @@ If you are interested in contributing of some changes, Please read [CONTRIBUTING
 ## Issues
 
 Please forward all issues to https://bugs.oxid-esales.com/ for the project **Flow Theme**.
-
-## License
-
-Licensing of the software product depends on the OXID eShop edition used. The software for OXID eShop Community Edition is published under the GNU General Public License v3. You may distribute and/or modify this software according to the licensing terms published by the Free Software Foundation. Legal licensing terms regarding the distribution of software being subject to GNU GPL can be found under http://www.gnu.org/licenses/gpl.html. The software for OXID eShop Professional Edition and Enterprise Edition is released under commercial license. OXID eSales AG has the sole rights to the software. Decompiling the source code, unauthorized copying as well as distribution to third parties is not permitted. Infringement will be reported to the authorities and prosecuted without exception.
