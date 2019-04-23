@@ -14,8 +14,6 @@ class GetRequestVariablesExtensionTest extends AbstractExtensionTest
     /** @var GetRequestVariablesExtension */
     protected $extension;
 
-    protected $functions = ['get_global_cookie', 'get_global_get'];
-
     public function setUp()
     {
         $this->extension = new GetRequestVariablesExtension();
@@ -36,10 +34,10 @@ class GetRequestVariablesExtensionTest extends AbstractExtensionTest
     public function dummyTemplateProvider(): array
     {
         return [
-            ['{{ get_global_cookie("foo") }}', 'bar'],
-            ['{{ get_global_cookie("bar") }}', ''],
-            ['{{ get_global_get("foo") }}', 'bar'],
-            ['{{ get_global_get("bar") }}', ''],
+            ['{{ get_COOKIE("foo") }}', 'bar'],
+            ['{{ get_COOKIE("bar") }}', ''],
+            ['{{ get_GET("foo") }}', 'bar'],
+            ['{{ get_GET("bar") }}', ''],
         ];
     }
 
