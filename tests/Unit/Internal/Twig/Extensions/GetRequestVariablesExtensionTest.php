@@ -34,10 +34,10 @@ class GetRequestVariablesExtensionTest extends AbstractExtensionTest
     public function dummyTemplateProvider(): array
     {
         return [
-            ['{{ get_php_cookie("foo") }}', 'bar'],
-            ['{{ get_php_cookie("bar") }}', ''],
-            ['{{ get_php_get("foo") }}', 'bar'],
-            ['{{ get_php_get("bar") }}', ''],
+            ['{{ get_COOKIE("foo") }}', 'bar'],
+            ['{{ get_COOKIE("bar") }}', ''],
+            ['{{ get_GET("foo") }}', 'bar'],
+            ['{{ get_GET("bar") }}', ''],
         ];
     }
 

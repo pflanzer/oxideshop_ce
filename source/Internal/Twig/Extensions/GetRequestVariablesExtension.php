@@ -24,8 +24,8 @@ class GetRequestVariablesExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('get_php_cookie', [$this, 'getPhpCookie']),
-            new TwigFunction('get_php_get', [$this, 'getPhpGet'])
+            new TwigFunction('get_COOKIE', [$this, 'getCookie']),
+            new TwigFunction('get_GET', [$this, 'getGet'])
         ];
     }
 
@@ -34,7 +34,7 @@ class GetRequestVariablesExtension extends AbstractExtension
      *
      * @return mixed|null
      */
-    public function getPhpCookie(string $key)
+    public function getCookie(string $key)
     {
         $cookie = NULL;
         if(isset($_COOKIE[$key])){
@@ -43,7 +43,7 @@ class GetRequestVariablesExtension extends AbstractExtension
         return $cookie;
     }
 
-    public function getPhpGet(string $key)
+    public function getGet(string $key)
     {
         $get = NULL;
         if(isset($_GET[$key])){
