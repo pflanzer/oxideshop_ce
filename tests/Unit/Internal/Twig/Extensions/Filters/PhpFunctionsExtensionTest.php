@@ -15,7 +15,7 @@ class PhpFunctionsExtensionTest extends AbstractExtensionTest
     /** @var PhpFunctionsExtension */
     protected $extension;
 
-    protected $filters = ['parse_url', 'oxNew', 'strtotime', 'is_array', 'urlencode', 'addslashes'];
+    protected $filters = ['parse_url', 'oxNew', 'strtotime', 'is_array', 'urlencode', 'addslashes', 'getimagesize'];
 
     /**
      * {@inheritDoc}

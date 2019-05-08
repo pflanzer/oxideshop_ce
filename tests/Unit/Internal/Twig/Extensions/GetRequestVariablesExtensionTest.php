@@ -14,6 +14,8 @@ class GetRequestVariablesExtensionTest extends AbstractExtensionTest
     /** @var GetRequestVariablesExtension */
     protected $extension;
 
+    protected $functions = ['get_global_cookie', 'get_global_get'];
+
     public function setUp()
     {
         $this->extension = new GetRequestVariablesExtension();
