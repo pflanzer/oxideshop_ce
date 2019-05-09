@@ -44,7 +44,7 @@ class StyleExtension extends AbstractExtension
 
     /**
      * @param Environment $env
-     * @param array             $params
+     * @param array       $params
      *
      * @return string
      */

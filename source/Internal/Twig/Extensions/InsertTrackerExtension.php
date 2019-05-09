@@ -28,8 +28,8 @@ class InsertTrackerExtension extends AbstractExtension
     }
 
     /**
-     * @param  Environment $env
-     * @param  array             $params
+     * @param Environment $env
+     * @param array       $params
      *
      * @return string
      */
