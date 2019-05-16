@@ -969,6 +969,20 @@ function showInvitations()
                 </dd>
                 <div class="spacer"></div>
             </dl>
+			
+			<dl>
+                <dt>
+                    <select class="select" id="nlsubslogtype" name=confstrs[sNlSubsLogType] [{ $readonly }]>
+                        <option value="TXT"  [{if !$confstrs.sNlSubsLogType || $confstrs.sNlSubsLogType == 'TXT' }]selected[{/if}]>[{ oxmultilang ident="SHOP_CONFIG_TXT" }]</option>
+                        <option value="CSV"  [{if $confstrs.sNlSubsLogType == 'CSV' }]selected[{/if}]>[{ oxmultilang ident="SHOP_CONFIG_CSV" }]</option>
+                    </select>
+                    [{ oxinputhelp ident="HELP_SHOP_CONFIG_NLSUBSCRIPTIONLOG" }]
+                </dt>
+                <dd>
+                    [{ oxmultilang ident="SHOP_CONFIG_NLSUBSCRIPTIONLOG" }]
+                </dd>
+                <div class="spacer"></div>
+            </dl>
 
             <dl>
                 <dt>
