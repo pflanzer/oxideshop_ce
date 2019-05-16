@@ -171,6 +171,7 @@ class oxNewsSubscribed extends oxBase
     {
         $this->oxnewssubscribed__oxdboptin = new oxField($iStatus, oxField::T_RAW);
         $this->save();
+		$this->_logSubscription($iStatus);
     }
 
     /**
@@ -231,4 +232,90 @@ class oxNewsSubscribed extends oxBase
 
         return (bool) $this->save();
     }
+	
+	/** 
+	 * Returns allowed sources (only for frontend forms) for newsletter subscription logging 
+	 *
+	 * @return array
+	 */
+	public function getAllowedNewsSubscriptionSources() 
+	{
+		return array('footerform','footerlink');
+	}
+	
+	/**
+	 * Return source for newsletter subscription logging.
+	 * Possible sources are: footerform, footerlink, newsletterform, registerform, myaccount, checkout, admin, unknown 
+	 *
+	 * @return string
+	 */
+	protected function _getNewsletterSubsriptionSource() 
+	{
+		if($this->isAdmin()) return 'admin';
+		$sTopActiveClass = strtolower(oxRegistry::get('oxconfig')->getRequestParameter('cl'));
+		switch ($sTopActiveClass) {
+			case 'newsletter':
+				$sRequestSource = oxRegistry::get('oxconfig')->getRequestParameter('nlsource');
+				if(in_array($sRequestSource, $this->getAllowedNewsSubscriptionSources())) return $sRequestSource;
+				return 'newsletterform';
+			case 'register':
+				return 'registerform';
+			case 'account_newsletter':
+				return 'myaccount';
+			case 'user':
+				return 'checkout';
+		}
+		return 'unknown';
+	} 
+	
+
+	/**
+	 * Logs subscription updates
+	 *
+	 * @param integer subscription status
+	 *
+	 * @return void
+	 */
+	protected function _logSubscription($iStatus) 
+	{
+		$aLogData = array('SOURCE' => $this->_getNewsletterSubsriptionSource(), 'LOGTIME' => date('Y-m-d H:i:s'));
+		$aLogData = array_merge($aLogData,oxDb::getDb(oxDb::FETCH_MODE_ASSOC)->getRow("SELECT * FROM oxnewssubscribed WHERE OXID='".$this->getId()."'"));
+		$sFormat = 'TXT';
+		$sSeperator = '	';
+		if(oxRegistry::get('oxconfig')->getShopConfVar('sNlSubsLogType') == 'CSV') {
+			$sFormat = 'CSV';
+			$sSeperator = ';';
+			foreach($aLogData as $k => $v) {
+				$aLogData[$k] = '"'.$v.'"';
+			}
+		}
+		$filepath = oxRegistry::get('oxconfig')->getConfigParam('sShopDir').'/log/'.$this->_getSubscriptionLogFilename();
+		// Write headline if file does not exist:
+		if(!file_exists($filepath) || filesize($filepath) < 1) {
+			file_put_contents($filepath,implode($sSeperator,array_keys($aLogData)));
+		}
+		// Write log data
+		file_put_contents($filepath,PHP_EOL.implode($sSeperator,$aLogData),FILE_APPEND);
+	}
+	
+	/**
+	 * Returns format for subscription logging. Configurable in admin.
+	 *
+	 * @return string
+	 */
+	protected function _getSubscriptionLogFormat() 
+	{
+		if(oxRegistry::get('oxconfig')->getShopConfVar('sNlSubsLogType') == 'CSV') return 'csv';
+		return 'txt';
+	}
+	
+	/**
+	 * Return filename to write subscription log data in
+	 *
+	 * @return string
+	 */
+	protected function _getSubscriptionLogFilename() {
+		return 'nlsubscriptions_'.oxRegistry::get('oxconfig')->getShopId().'.'.$this->_getSubscriptionLogFormat();
+	}
+	
 }

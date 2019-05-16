@@ -5,6 +5,7 @@
     <div>
         [{ $oViewConf->getHiddenSid() }]
         <input type="hidden" name="fnc" value="send">
+		<input type="hidden" name="nlsource" value="[{$oView->getNewsletterSourceForForm()}]">
         <input type="hidden" name="cl" value="newsletter">
         <input type="hidden" name="editval[oxuser__oxcountryid]" value="[{$oView->getHomeCountryId()}]">
     </div>

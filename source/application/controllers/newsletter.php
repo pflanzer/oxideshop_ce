@@ -84,6 +84,20 @@ class Newsletter extends oxUBase
         // loads submited values
         $this->_aRegParams = oxConfig::getParameter( "editval" );
     }
+	
+	/**
+     * Returns Newsletter Source String for subscription Form
+     *
+     * @return string
+     */
+	public function getNewsletterSourceForForm()
+	{
+		$sRequestSource = oxRegistry::get('oxconfig')->getRequestParameter('nlsource');
+		if(!$sRequestSource) return '';
+		$oNewsSubscription = oxNew( 'oxnewssubscribed' );
+		if(in_array($sRequestSource, $oNewsSubscription->getAllowedNewsSubscriptionSources())) return $sRequestSource;
+		return '';
+	}
 
     /**
      * Checks for newsletter subscriber data, if OK - creates new user as
@@ -166,6 +180,19 @@ class Newsletter extends oxUBase
             $this->_iNewsletterStatus = 3;
         }
     }
+	
+	
+	/**
+     * Gets source for form 
+     *
+     * Template variables:
+     * <b>success</b>
+     *
+     * @return null
+     */
+	public function getFormSource() {
+		
+	}
 
     /**
      * Loads user and Adds him to newsletter group.

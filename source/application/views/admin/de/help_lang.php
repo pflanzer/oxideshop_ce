@@ -89,6 +89,8 @@ $aLang =  array(
 'HELP_SHOP_CONFIG_ORDEROPTINEMAIL'            => 'Wenn Double-Opt-In aktiviert ist, erhalten die Benutzer eine E-Mail mit einem Bestätigungs-Link, wenn sie sich für den Newsletter registrieren. Erst, wenn sie diesen Link besuchen, sind sie für den Newsletter angemeldet.<br>' .
                                                  'Double-Opt-In schützt vor Anmeldungen, die nicht gewollt sind. Ohne Double-Opt-In können beliebige E-Mail Adressen für den Newsletter angemeldet werden. Dies wird z. B. auch von Spam-Robotern gemacht. Durch Double-Opt-In kann der Besitzer der E-Mail Adresse bestätigen, dass er den Newsletter wirklich empfangen will.',
 
+'HELP_SHOP_CONFIG_NLSUBSCRIPTIONLOG'          => 'Die An- und Abmeldungen werden im Log-Verzeichnis des Shops gespeichert. Sie können hier das Format für die Logdatei auswählen.',
+												 
 'HELP_SHOP_CONFIG_BIDIRECTCROSS'              => 'Durch Crossselling können zu einem Artikel passende Artikel angeboten werden. Crossselling-Artikel werden im eShop bei <span class="filename_filepath_or_italic">Kennen Sie schon?</span> angezeigt.<br>' .
                                                  'Wenn z.B. einem Auto als Crossselling-Artikel Winterreifen zugeordnet sind, werden beim Auto die Winterreifen angezeigt. Wenn Bidirektionales Crossselling aktiviert ist, funktioniert Crossselling in beide Richtungen: bei den Winterreifen wird das Auto angezeigt.',
 

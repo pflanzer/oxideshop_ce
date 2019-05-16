@@ -3,6 +3,7 @@
     [{ $oViewConf->getHiddenSid() }]
     <input type="hidden" name="fnc" value="fill">
     <input type="hidden" name="cl" value="newsletter">
+	<input type="hidden" name="nlsource" value="footerform">
     [{if $oView->getProduct()}]
         [{assign var="product" value=$oView->getProduct() }]
         <input type="hidden" name="anid" value="[{ $product->oxarticles__oxnid->value }]">
